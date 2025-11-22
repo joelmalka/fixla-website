@@ -45,7 +45,7 @@
             if (!isClickInsideNav && !isClickOnToggle && navMenu.classList.contains('active')) {
                 mobileToggle.classList.remove('active');
                 navMenu.classList.remove('active');
-            });
+            }
         });
     }
 
