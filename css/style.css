@@ -308,7 +308,7 @@ input[type="submit"].btn-primary {
    ============================================ */
 .hero {
     position: relative;
-    min-height: 600px;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -867,7 +867,7 @@ input[type="submit"].btn-primary {
 
     /* Hero */
     .hero {
-        min-height: 400px;
+        min-height: 100vh;
         padding: 60px 20px;
     }
 
