@@ -164,6 +164,8 @@ section {
     color: var(--color-primary);
     font-family: var(--font-primary);
     white-space: nowrap;
+    position: relative;
+    z-index: 1002;
 }
 
 .nav-menu {
@@ -792,7 +794,28 @@ input[type="submit"].btn-primary {
         padding: 0 20px;
     }
 
+    /* Add padding to body to account for fixed navbar */
+    body {
+        padding-top: 69px;
+    }
+
     /* Navigation */
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        background-color: var(--color-white);
+        z-index: 1000;
+        padding: 1rem 0;
+    }
+
+    .nav-wrapper {
+        position: relative;
+        z-index: 1002;
+    }
+
     .nav-menu {
         position: fixed;
         top: 69px;
