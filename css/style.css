@@ -59,6 +59,8 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    max-width: 100vw;
 }
 
 body {
@@ -67,6 +69,8 @@ body {
     color: var(--color-dark);
     background-color: var(--color-white);
     overflow-x: hidden;
+    max-width: 100vw;
+    position: relative;
 }
 
 img {
@@ -789,9 +793,18 @@ input[type="submit"].btn-primary {
    Responsive Design
    ============================================ */
 @media (max-width: 920px) {
+    /* Prevent horizontal scrolling on mobile */
+    html, body {
+        overflow-x: hidden;
+        max-width: 100vw;
+        width: 100%;
+    }
+
     /* Container adjustments */
     .container {
         padding: 0 20px;
+        max-width: 100vw;
+        overflow-x: hidden;
     }
 
     /* Add padding to body to account for fixed navbar */
@@ -869,6 +882,16 @@ input[type="submit"].btn-primary {
     .hero {
         min-height: 100vh;
         padding: 60px 20px;
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
+    }
+
+    /* Sections */
+    section {
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
     }
 
     .hero-content h1 {
