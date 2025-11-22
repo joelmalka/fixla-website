@@ -210,7 +210,16 @@ section {
     flex-direction: column;
     gap: 5px;
     cursor: pointer;
-    padding: 5px;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    z-index: 1001;
+    position: relative;
+}
+
+.mobile-menu-toggle:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
 }
 
 .mobile-menu-toggle span {
@@ -219,6 +228,7 @@ section {
     background-color: var(--color-dark);
     transition: var(--transition-fast);
     border-radius: 2px;
+    display: block;
 }
 
 .mobile-menu-toggle.active span:nth-child(1) {
