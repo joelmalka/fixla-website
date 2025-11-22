@@ -13,11 +13,19 @@
         const mobileToggle = document.querySelector('.mobile-menu-toggle');
         const navMenu = document.querySelector('.nav-menu');
 
-        if (!mobileToggle || !navMenu) return;
+        console.log('Mobile menu init:', { mobileToggle, navMenu });
 
-        mobileToggle.addEventListener('click', function() {
+        if (!mobileToggle || !navMenu) {
+            console.error('Mobile menu elements not found!');
+            return;
+        }
+
+        mobileToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Menu clicked!');
             this.classList.toggle('active');
             navMenu.classList.toggle('active');
+            console.log('Menu is now:', navMenu.classList.contains('active') ? 'OPEN' : 'CLOSED');
         });
 
         // Close menu when clicking on a nav link

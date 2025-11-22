@@ -810,6 +810,8 @@ input[type="submit"].btn-primary {
 
     .nav-menu.active {
         max-height: 500px;
+        opacity: 1;
+        visibility: visible;
     }
 
     .nav-menu li {
