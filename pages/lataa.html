@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lataa Fixla | Arjen Palvelut Helposti</title>
+    <meta name="description" content="Lataa Fixla-sovellus ilmaiseksi App Storesta tai Google Playsta. Tilaa arjen palvelut helposti ja nopeasti suoraan puhelimestasi.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/YbNBqBBGKjUnV6oJ/fixla_logo_white_on_green-dWxLPrW5XNi1RnqY.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .download-hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 60px 20px;
+        }
+
+        .download-container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 30px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .download-logo {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #4FD683 0%, #2FA654 100%);
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 42px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(47, 166, 84, 0.4);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .download-logo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(47, 166, 84, 0.5);
+        }
+
+        .download-container h1 {
+            font-size: 42px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .download-container .subtitle {
+            font-size: 20px;
+            color: #7f8c8d;
+            margin-bottom: 50px;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .download-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .download-method {
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 20px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .download-method:hover {
+            border-color: rgb(55, 181, 38);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(55, 181, 38, 0.2);
+        }
+
+        .download-method h3 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .qr-code {
+            width: 180px;
+            height: 180px;
+            background: white;
+            border: 3px solid #e0e0e0;
+            border-radius: 15px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .store-badge {
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        .store-badge img {
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        .store-badge:hover img {
+            transform: scale(1.05);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+            padding-top: 50px;
+            border-top: 2px solid #ecf0f1;
+        }
+
+        .feature-item {
+            text-align: center;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: rgb(55, 181, 38);
+            border-radius: 15px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+        }
+
+        .feature-item h4 {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .feature-item p {
+            font-size: 14px;
+            color: #7f8c8d;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .download-container {
+                padding: 40px 25px;
+            }
+
+            .download-container h1 {
+                font-size: 32px;
+            }
+
+            .download-container .subtitle {
+                font-size: 18px;
+            }
+
+            .download-methods {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .qr-code {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Download Hero Section -->
+    <section class="download-hero">
+        <div class="download-container">
+            <div class="download-logo" onclick="redirectToStore()">Fixla</div>
+
+            <h1>Lataa <span style="color: rgb(55, 181, 38);">Fixla</span></h1>
+            <p class="subtitle">Arjen palvelut taskussasi. Lataa sovellus ilmaiseksi ja aloita palveluiden tilaaminen jo tänään.</p>
+
+            <div class="download-methods">
+                <!-- iOS Download -->
+                <div class="download-method" onclick="window.open('https://apps.apple.com/fi/app/fixla/id6751362626', '_blank')">
+                    <h3>iPhone & iPad</h3>
+                    <div class="qr-code">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://apps.apple.com/fi/app/fixla/id6751362626" alt="App Store QR Code">
+                    </div>
+                    <p style="color: #7f8c8d; margin-bottom: 10px;">Skannaa QR-koodi tai klikkaa tästä</p>
+                    <a href="https://apps.apple.com/fi/app/fixla/id6751362626" class="store-badge" target="_blank">
+                        <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/fi-fi?size=250x83&releaseDate=1318032000" alt="Lataa App Storesta">
+                    </a>
+                </div>
+
+                <!-- Android Download -->
+                <div class="download-method" onclick="window.open('https://play.google.com/store/apps/details?id=com.joelmalka.fixla&pcampaignid=web_share', '_blank')">
+                    <h3>Android</h3>
+                    <div class="qr-code">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://play.google.com/store/apps/details?id=com.joelmalka.fixla" alt="Google Play QR Code">
+                    </div>
+                    <p style="color: #7f8c8d; margin-bottom: 10px;">Skannaa QR-koodi tai klikkaa tästä</p>
+                    <a href="https://play.google.com/store/apps/details?id=com.joelmalka.fixla&pcampaignid=web_share" class="store-badge" target="_blank">
+                        <img src="https://play.google.com/intl/en_us/badges/static/images/badges/fi_badge_web_generic.png" alt="Lataa Google Playsta" style="height: 75px;">
+                    </a>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                    </div>
+                    <h4>Nopea Tilaus</h4>
+                    <p>Tilaa palvelut muutamalla klikkauksella</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <h4>Läpinäkyvät Hinnat</h4>
+                    <p>Tiedät hinnan aina etukäteen</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </div>
+                    <h4>Luotettavat Palvelut</h4>
+                    <p>Tarkistetut ja luotettavat palveluntarjoajat</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function redirectToStore() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            // Check if iOS
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                window.location.href = 'https://apps.apple.com/fi/app/fixla/id6751362626';
+                return;
+            }
+
+            // Check if Android
+            if (/android/i.test(userAgent)) {
+                window.location.href = 'https://play.google.com/store/apps/details?id=com.joelmalka.fixla&pcampaignid=web_share';
+                return;
+            }
+
+            // For desktop, scroll to download options
+            document.querySelector('.download-methods').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
