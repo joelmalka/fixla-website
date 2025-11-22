@@ -215,6 +215,35 @@
     }
 
     /**
+     * Scroll Reveal Animations
+     */
+    function initScrollReveal() {
+        const revealElements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale');
+
+        if (revealElements.length === 0) return;
+
+        const observerOptions = {
+            root: null,
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    // Optional: stop observing after reveal (one-time animation)
+                    // observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        revealElements.forEach(element => {
+            observer.observe(element);
+        });
+    }
+
+    /**
      * Initialize all functions when DOM is ready
      */
     function init() {
@@ -223,6 +252,7 @@
         initFormHandler();
         setActiveNavLink();
         initScrollToTop();
+        initScrollReveal();
 
         // Only init lazy loading if images with data-src exist
         if (document.querySelectorAll('img[data-src]').length > 0) {
