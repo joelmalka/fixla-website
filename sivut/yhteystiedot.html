@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Palvelut | Fixla</title>
-    <meta name="description" content="Tutustu Fixlan tarjoamiin kotiapupalveluihin Espoossa - nurmikonleikkuu, haravointi, aitojen pesu, lumityöt, rännien putsaus ja koiran ulkoilutus.">
-    <meta name="keywords" content="nurmikonleikkuu, haravointi, aitojen pesu, lumityöt, rännien putsaus, koiranulkoilutus, espoo">
+    <title>Ota yhteyttä | Fixla</title>
+    <meta name="description" content="Tarvitsetko apua tai haluatko kysyä lisää palveluistamme? Ota yhteyttä Fixlaan helposti.">
+    <meta name="keywords" content="yhteystiedot, ota yhteyttä, fixla yhteystiedot, espoo">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.fixla.fi/pages/palvelut.html">
-    <meta property="og:title" content="Palvelut | Fixla">
-    <meta property="og:description" content="Tutustu Fixlan tarjoamiin kotiapupalveluihin Espoossa.">
+    <meta property="og:url" content="https://www.fixla.fi/sivut/yhteystiedot">
+    <meta property="og:title" content="Ota yhteyttä | Fixla">
+    <meta property="og:description" content="Tarvitsetko apua tai haluatko kysyä lisää palveluistamme? Ota yhteyttä Fixlaan helposti.">
     <meta property="og:image" content="https://www.fixla.fi/images/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -19,12 +19,12 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Palvelut | Fixla">
-    <meta name="twitter:description" content="Tutustu Fixlan tarjoamiin kotiapupalveluihin Espoossa.">
+    <meta name="twitter:title" content="Ota yhteyttä | Fixla">
+    <meta name="twitter:description" content="Tarvitsetko apua tai haluatko kysyä lisää palveluistamme? Ota yhteyttä Fixlaan helposti.">
     <meta name="twitter:image" content="https://www.fixla.fi/images/og-image.jpg">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://www.fixla.fi/pages/palvelut.html">
+    <link rel="canonical" href="https://www.fixla.fi/sivut/yhteystiedot">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/YbNBqBBGKjUnV6oJ/fixla_logo_white_on_green-dWxLPrW5XNi1RnqY.png">
@@ -45,51 +45,21 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Service",
-      "serviceType": "Kotiapupalvelut",
-      "provider": {
+      "@type": "ContactPage",
+      "name": "Yhteystiedot",
+      "description": "Ota yhteyttä Fixlaan",
+      "mainEntity": {
         "@type": "LocalBusiness",
         "name": "Fixla",
+        "email": "teamfixla@gmail.com",
+        "telephone": ["+358451567778", "+358405021215"],
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Espoo",
           "postalCode": "02140",
           "addressCountry": "FI"
-        },
-        "telephone": "+358451567778",
-        "email": "teamfixla@gmail.com"
-      },
-      "areaServed": ["Espoo", "Helsinki", "Vantaa", "Kauniainen"],
-      "offers": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Nurmikonleikkuu"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Haravointi"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Lumityöt"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Koiran ulkoilutus"
-          }
         }
-      ]
+      }
     }
     </script>
 </head>
@@ -98,7 +68,7 @@
     <nav class="navbar">
         <div class="container">
             <div class="nav-wrapper">
-                <a href="../index.html" class="logo">Fixla</a>
+                <a href="/" class="logo">Fixla</a>
 
                 <!-- Mobile Menu Toggle -->
                 <button type="button" class="mobile-menu-toggle" aria-label="Toggle navigation menu">
@@ -108,10 +78,11 @@
                 </button>
 
                 <ul class="nav-menu">
-                    <li><a href="../index.html">Koti</a></li>
-                    <li><a href="palvelut.html" class="active">Palvelut</a></li>
-                    <li><a href="hinnasto.html">Hinnasto</a></li>
-                    <li><a href="tietoa.html">Tietoa Meistä</a></li>
+                    <li><a href="/">Koti</a></li>
+                    <li><a href="/sivut/palvelut">Palvelut</a></li>
+                    <li><a href="/sivut/hinnasto">Hinnasto</a></li>
+                    <li><a href="/sivut/yhteystiedot" class="active">Yhteystiedot</a></li>
+                    <li><a href="/sivut/tietoa">Tietoa Meistä</a></li>
                 </ul>
 
                 <a href="#" onclick="redirectToAppStore(); return false;" class="btn-primary">Lataa Fixla</a>
@@ -119,117 +90,74 @@
         </div>
     </nav>
 
-    <!-- Tire Change Section -->
-    <section class="outdoor-services" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://plus.unsplash.com/premium_photo-1683141571145-4676ddf91387?w=1200&fit=crop') center/cover no-repeat; padding: 48px 0;">
+    <!-- Hero Section -->
+    <section class="hero" style="background-image: url('../images/photo-1423666639041-f56000c27a9a.jpg');">
         <div class="container">
-            <h2 style="color: white; margin-bottom: 32px;">Rengaspalvelut</h2>
-            <div class="service-grid-two" style="max-width: 550px; margin-left: auto; margin-right: auto;">
-                <!-- Service: Renkaiden vaihto -->
-                <div class="service-card" style="background-color: rgba(255, 255, 255, 0.95); max-width: 550px; border-radius: 12px; margin: 0 auto;">
-                    <div class="service-content" style="padding: 24px 32px;">
-                        <h3 style="font-size: 20px; margin-bottom: 10px;">Renkaiden vaihto</h3>
-                        <p style="font-size: 15px; margin-bottom: 16px;">Renkaiden vaihto valitsemana ajankohtana, joustavasti ja nopeasti</p>
-                        <a href="services/renkaiden-vaihto.html" class="btn-secondary">Tilaa nyt</a>
-                    </div>
-                </div>
+            <div class="hero-content">
+                <h1>Yhteystiedot</h1>
             </div>
         </div>
     </section>
 
-    <!-- Outdoor Services Section -->
+    <!-- Contact Info Section -->
     <section class="services-section">
         <div class="container">
-            <h2 class="scroll-reveal">Kotitalouden <span class="green-text">Ulkotyöt</span></h2>
+            <h2 class="scroll-reveal">Ota <span class="green-text">Yhteyttä</span></h2>
+            <p class="subtitle">Olemme täällä auttaaksemme sinua. Ota rohkeasti yhteyttä!</p>
 
             <div class="services-grid">
-                <!-- Service: Nurmikonleikkuu -->
-                <div class="service-card scroll-reveal-scale">
-                    <div class="service-image">
-                        <img src="https://images.unsplash.com/photo-1690068023694-053da714f95f?w=800&h=600&fit=crop" alt="Nurmikonleikkuu" width="800" height="600" loading="lazy">
-                    </div>
-                    <div class="service-content">
-                        <h3>Nurmikonleikkuu</h3>
-                        <p>Nurmikonleikkuun nopeasti silloin, kun sinulle sopii</p>
-                        <a href="services/nurmikonleikkuu.html" class="btn-secondary">Tilaa nyt</a>
-                    </div>
-                </div>
-
-                <!-- Service: Haravointi -->
-                <div class="service-card scroll-reveal-scale">
-                    <div class="service-image">
-                        <img src="../images/photo-1634081727680-fa43e3237d5a.jpg" alt="Haravointi" width="800" height="600" loading="lazy">
-                    </div>
-                    <div class="service-content">
-                        <h3>Haravointi</h3>
-                        <p>Pihasi haravointi sinun valitsemana ajankohtana, joustavasti ja nopeasti</p>
-                        <a href="services/haravointi.html" class="btn-secondary">Tilaa nyt</a>
+                <!-- Email Card -->
+                <div class="service-card">
+                    <div class="service-content" style="text-align: center; padding: 3rem 2rem;">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin: 0 auto 1.5rem;">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        <h3>Sähköpostimme</h3>
+                        <p style="font-size: 1.125rem; margin-top: 1rem;">
+                            <a href="mailto:teamfixla@gmail.com" style="color: #4CAF50; text-decoration: none;">teamfixla@gmail.com</a>
+                        </p>
                     </div>
                 </div>
 
-                <!-- Service: Aitojen pesu -->
-                <div class="service-card scroll-reveal-scale">
-                    <div class="service-image">
-                        <img src="https://plus.unsplash.com/premium_photo-1661953313996-beaab35d4bcf?w=800&h=600&fit=crop" alt="Aitojen pesu" width="800" height="600" loading="lazy">
-                    </div>
-                    <div class="service-content">
-                        <h3>Aitojen pesu</h3>
-                        <p>Aitojen pesu sinun valitsemana ajankohtana, joustavasti ja nopeasti</p>
-                        <a href="services/aitojen-pesu.html" class="btn-secondary">Tilaa nyt</a>
-                    </div>
-                </div>
-
-                <!-- Service: Aitojen maalaus -->
-                <div class="service-card scroll-reveal-scale">
-                    <div class="service-image">
-                        <img src="https://plus.unsplash.com/premium_photo-1667870036406-631ee715b494?w=800&h=600&fit=crop" alt="Aitojen maalaus" width="800" height="600" loading="lazy">
-                    </div>
-                    <div class="service-content">
-                        <h3>Aitojen maalaus</h3>
-                        <p>Aitojen maalaus sinun valitsemana ajankohtana, joustavasti ja nopeasti</p>
-                        <a href="services/aitojen-maalaus.html" class="btn-secondary">Tilaa nyt</a>
+                <!-- Phone Card -->
+                <div class="service-card">
+                    <div class="service-content" style="text-align: center; padding: 3rem 2rem;">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin: 0 auto 1.5rem;">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                        <h3>Puhelin</h3>
+                        <p style="font-size: 1.125rem; margin-top: 1rem;">
+                            <a href="tel:0405021215" style="color: #4CAF50; text-decoration: none; display: block;">040 502 1215</a>
+                            <a href="tel:0451567778" style="color: #4CAF50; text-decoration: none; display: block; margin-top: 0.5rem;">045 156 7778</a>
+                        </p>
                     </div>
                 </div>
 
-                <!-- Service: Lumityöt -->
-                <div class="service-card scroll-reveal-scale">
-                    <div class="service-image">
-                        <img src="../images/snow_work-Awv4DlV40wuqoVnO.png" alt="Lumityöt">
-                    </div>
-                    <div class="service-content">
-                        <h3>Lumityöt</h3>
-                        <p>Lumityöt sinun valitsemana ajankohtana</p>
-                        <a href="services/lumityot.html" class="btn-secondary">Tilaa nyt</a>
-                    </div>
-                </div>
-
-                <!-- Service: Rännien Putsaus -->
-                <div class="service-card scroll-reveal-scale">
-                    <div class="service-image">
-                        <img src="../images/photo-1665442348932-6e16d72fe163.jpg" alt="Rännien Putsaus" width="800" height="600" loading="lazy">
-                    </div>
-                    <div class="service-content">
-                        <h3>Rännien Putsaus</h3>
-                        <p>Rännien putsaus valitsemana ajankohtana, joustavasti ja nopeasti</p>
-                        <a href="services/rannien-putsaus.html" class="btn-secondary">Tilaa nyt</a>
+                <!-- Location Card -->
+                <div class="service-card">
+                    <div class="service-content" style="text-align: center; padding: 3rem 2rem;">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin: 0 auto 1.5rem;">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        <h3>Sijainti</h3>
+                        <p style="font-size: 1.125rem; margin-top: 1rem;">
+                            Espoo, Suomi<br>02140
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pet Care Section -->
-    <section class="outdoor-services" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/photo-1587916369552-4c5b9b2fc3f5.jpg') center/cover no-repeat; padding: 48px 0;">
+    <!-- CTA Section -->
+    <section class="about-section" style="background-image: url('../images/photo-1600880292203-757bb62b4baf.jpg');">
         <div class="container">
-            <h2 style="color: white; margin-bottom: 32px;">Lemmikinhoito</h2>
-            <div class="service-grid-two" style="max-width: 550px; margin-left: auto; margin-right: auto;">
-                <!-- Service: Koiran ulkoilutus -->
-                <div class="service-card" style="background-color: rgba(255, 255, 255, 0.95); max-width: 550px; border-radius: 12px; margin: 0 auto;">
-                    <div class="service-content" style="padding: 24px 32px;">
-                        <h3 style="font-size: 20px; margin-bottom: 10px;">Koiran ulkoilutus</h3>
-                        <p style="font-size: 15px; margin-bottom: 16px;">Koiran ulkoilutus valitsemana ajankohtana, joustavasti ja nopeasti</p>
-                        <a href="services/koiran-ulkoilutus.html" class="btn-secondary">Tilaa nyt</a>
-                    </div>
-                </div>
+            <div class="about-content">
+                <h3>Aloita <span class="green-text">tänään</span></h3>
+                <p>Lataa Fixla-sovellus ja koe arjen palvelut uudella tavalla. Helppo, nopea ja joustava tapa tilata tarvitsemasi apu.</p>
+                <a href="#" onclick="redirectToAppStore(); return false;" class="btn-primary">Lataa Fixla</a>
             </div>
         </div>
     </section>
