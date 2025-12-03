@@ -136,63 +136,6 @@
         });
     }
 
-    /**
-     * Scroll to Top Button (optional enhancement)
-     */
-    function initScrollToTop() {
-        // Create button element
-        const scrollBtn = document.createElement('button');
-        scrollBtn.innerHTML = '↑';
-        scrollBtn.className = 'scroll-to-top';
-        scrollBtn.setAttribute('aria-label', 'Scroll to top');
-        scrollBtn.style.cssText = `
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: var(--color-primary);
-            color: white;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-            z-index: 999;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        `;
-
-        document.body.appendChild(scrollBtn);
-
-        // Show/hide button on scroll
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 300) {
-                scrollBtn.style.opacity = '1';
-                scrollBtn.style.transform = 'scale(1)';
-            } else {
-                scrollBtn.style.opacity = '0';
-                scrollBtn.style.transform = 'scale(0.8)';
-            }
-        });
-
-        // Scroll to top on click
-        scrollBtn.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Hover effect
-        scrollBtn.addEventListener('mouseenter', function() {
-            this.style.backgroundColor = 'var(--color-primary-dark)';
-        });
-
-        scrollBtn.addEventListener('mouseleave', function() {
-            this.style.backgroundColor = 'var(--color-primary)';
-        });
-    }
 
     /**
      * Lazy Loading Images (performance enhancement)
@@ -251,7 +194,6 @@
         initSmoothScroll();
         initFormHandler();
         setActiveNavLink();
-        initScrollToTop();
         initScrollReveal();
 
         // Only init lazy loading if images with data-src exist
