@@ -236,6 +236,12 @@
         <div class="download-container">
             <div class="download-logo" onclick="redirectToStore()">Fixla</div>
 
+            <!-- Referral Banner - shown when ?ref= parameter is present -->
+            <div id="referral-banner" style="display: none; background: linear-gradient(135deg, #4FD683 0%, #2FA654 100%); color: white; padding: 15px 25px; border-radius: 15px; margin-bottom: 25px; text-align: center;">
+                <p style="margin: 0; font-size: 16px;">🎉 Saat <strong>5€ alennuksen</strong> ensimmäisestä tilauksesta!</p>
+                <p style="margin: 5px 0 0; font-size: 14px; opacity: 0.9;">Suosittelukoodi: <strong id="referral-code-display"></strong> lisätään automaattisesti</p>
+            </div>
+
             <h1 class="scroll-reveal">Lataa <span style="color: rgb(55, 181, 38);">Fixla</span></h1>
             <p class="subtitle scroll-reveal">Arjen palvelut taskussasi. Lataa sovellus ilmaiseksi ja aloita palveluiden tilaaminen jo tänään.</p>
 
@@ -349,8 +355,39 @@
     <!-- JavaScript -->
     <script src="../js/main.js"></script>
     <script>
+        // Get referral code from URL parameter
+        function getReferralCode() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('ref') || urlParams.get('referral') || '';
+        }
+
+        // Store referral code in localStorage for the app to pick up
+        function storeReferralCode() {
+            const referralCode = getReferralCode();
+            if (referralCode) {
+                localStorage.setItem('fixla_referral_code', referralCode.toUpperCase());
+                console.log('Referral code stored:', referralCode);
+            }
+        }
+
+        // Show referral banner if code is present
+        function showReferralBanner() {
+            const referralCode = getReferralCode();
+            if (referralCode) {
+                const banner = document.getElementById('referral-banner');
+                const codeDisplay = document.getElementById('referral-code-display');
+                if (banner && codeDisplay) {
+                    codeDisplay.textContent = referralCode.toUpperCase();
+                    banner.style.display = 'block';
+                }
+            }
+        }
+
         function redirectToStore() {
             const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            // Store referral code before redirecting
+            storeReferralCode();
 
             // Check if iOS
             if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
@@ -367,6 +404,12 @@
             // For desktop, scroll to download options
             document.querySelector('.download-methods').scrollIntoView({ behavior: 'smooth' });
         }
+
+        // Run on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            storeReferralCode();
+            showReferralBanner();
+        });
     </script>
 
 </body>
