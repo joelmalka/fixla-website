@@ -37,22 +37,20 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
         }
 
-        .service-icon {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 25px;
+        .service-logo {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 30px;
             background: linear-gradient(135deg, #4FD683 0%, #2FA654 100%);
             border-radius: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 10px 30px rgba(47, 166, 84, 0.4);
-        }
-
-        .service-icon svg {
-            width: 60px;
-            height: 60px;
             color: white;
+            font-size: 42px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(47, 166, 84, 0.4);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
         }
 
         .service-container h1 {
@@ -70,23 +68,6 @@
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
-        }
-
-        /* Urgency Banner */
-        .urgency-banner {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            font-weight: 600;
-            font-size: 15px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
         }
 
         /* Primary CTA Section */
@@ -280,36 +261,6 @@
             color: #7f8c8d;
         }
 
-        /* Secondary CTA */
-        .secondary-cta {
-            text-align: center;
-        }
-
-        .secondary-cta p {
-            color: #7f8c8d;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        .store-badges {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .store-badge {
-            transition: transform 0.3s ease;
-        }
-
-        .store-badge:hover {
-            transform: scale(1.05);
-        }
-
-        .store-badge img {
-            height: 50px;
-        }
-
         /* Back Link */
         .back-link {
             margin-top: 30px;
@@ -360,14 +311,10 @@
                 width: 100%;
             }
 
-            .service-icon {
-                width: 100px;
-                height: 100px;
-            }
-
-            .service-icon svg {
-                width: 50px;
-                height: 50px;
+            .service-logo {
+                width: 110px;
+                height: 110px;
+                font-size: 34px;
             }
         }
     </style>
@@ -401,26 +348,16 @@
     <!-- Service Hero Section -->
     <section class="service-hero">
         <div class="service-container">
-            <!-- Service Icon -->
-            <div class="service-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                </svg>
-            </div>
+            <!-- Fixla Logo -->
+            <div class="service-logo">Fixla</div>
 
             <h1>Kodin <span style="color: rgb(55, 181, 38);">Siivous</span></h1>
             <p class="subtitle">Ammattitaitoinen kodin perussiivous valitsemana ajankohtana - joustavasti ja helposti sovelluksen kautta</p>
 
-            <!-- Urgency Banner -->
-            <div class="urgency-banner">
-                Tilaa nyt ja saat ensimmäisen siivouksen nopeasti!
-            </div>
-
             <!-- Primary CTA Section -->
             <div class="cta-section">
-                <h2>Tilaa siivous sovelluksesta</h2>
-                <p>Lataa Fixla ilmaiseksi ja tilaa siivous muutamalla klikkauksella</p>
+                <h2>Lataa sovellus ja tilaa siivous</h2>
+                <p>Ilmainen sovellus - tilaa muutamalla klikkauksella</p>
                 <div class="cta-buttons">
                     <a href="https://apps.apple.com/fi/app/fixla/id6751362626" class="cta-btn cta-btn-white" id="ios-btn">
                         <svg viewBox="0 0 24 24" fill="currentColor">
@@ -521,19 +458,6 @@
                 <div class="trust-item">
                     <span class="trust-number">24h</span>
                     <span class="trust-label">Nopea palvelu</span>
-                </div>
-            </div>
-
-            <!-- Secondary CTA with Store Badges -->
-            <div class="secondary-cta">
-                <p>Skannaa QR-koodi tai klikkaa latausnappeja</p>
-                <div class="store-badges">
-                    <a href="https://apps.apple.com/fi/app/fixla/id6751362626" class="store-badge" target="_blank">
-                        <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/fi-fi?size=250x83&releaseDate=1318032000" alt="Lataa App Storesta">
-                    </a>
-                    <a href="https://play.google.com/store/apps/details?id=com.joelmalka.fixla&pcampaignid=web_share" class="store-badge" target="_blank">
-                        <img src="https://play.google.com/intl/en_us/badges/static/images/badges/fi_badge_web_generic.png" alt="Lataa Google Playsta" style="height: 75px;">
-                    </a>
                 </div>
             </div>
 
