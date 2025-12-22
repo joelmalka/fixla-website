@@ -9,6 +9,24 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=32,h=32,fit=crop,f=png/YbNBqBBGKjUnV6oJ/fixla_logo_white_on_green-dWxLPrW5XNi1RnqY.png">
 
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '4030623523923315');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=4030623523923315&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -550,11 +568,14 @@
 
         detectDevice();
 
-        // Track CTA clicks for analytics (if needed)
-        document.querySelectorAll('.cta-btn, .store-badge').forEach(btn => {
+        // Track CTA clicks with Meta Pixel
+        document.querySelectorAll('.cta-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                // You can add analytics tracking here
-                console.log('Download CTA clicked:', this.href);
+                const store = this.id === 'ios-btn' ? 'App Store' : 'Google Play';
+                fbq('track', 'Lead', {
+                    content_name: 'Siivous Download Click',
+                    content_category: store
+                });
             });
         });
     </script>
