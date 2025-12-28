@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Fixla Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#16a34a" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="stylesheet" crossorigin href="./assets/index-Biuf9tkj.css">
+    <style>
+      .login-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+      .login-box {
+        background: white;
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+      }
+      .login-box h1 {
+        margin: 0 0 8px 0;
+        font-size: 24px;
+        color: #1a1a2e;
+      }
+      .login-box p {
+        margin: 0 0 24px 0;
+        color: #666;
+        font-size: 14px;
+      }
+      .login-box input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        font-size: 16px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+        transition: border-color 0.2s;
+      }
+      .login-box input:focus {
+        outline: none;
+        border-color: #16a34a;
+      }
+      .login-box button {
+        width: 100%;
+        padding: 14px 24px;
+        background: #16a34a;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .login-box button:hover {
+        background: #15803d;
+      }
+      .login-error {
+        color: #dc2626;
+        margin-bottom: 16px;
+        font-size: 14px;
+        display: none;
+      }
+      .login-error.show {
+        display: block;
+      }
+      .logo-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="login-overlay" class="login-overlay">
+      <div class="login-box">
+        <div class="logo-icon">🔐</div>
+        <h1>Fixla Admin</h1>
+        <p>Enter password to access the admin panel</p>
+        <div id="login-error" class="login-error">Incorrect password. Please try again.</div>
+        <input type="password" id="password-input" placeholder="Enter password" autocomplete="off" />
+        <button onclick="checkPassword()">Access Admin Panel</button>
+      </div>
+    </div>
+    <div id="app" style="display: none;"></div>
+    <script>
+      // Check if already authenticated
+      (function() {
+        var auth = sessionStorage.getItem('fixla_admin_auth');
+        if (auth === 'authenticated') {
+          document.getElementById('login-overlay').style.display = 'none';
+          document.getElementById('app').style.display = 'block';
+          loadApp();
+        }
+      })();
+
+      function checkPassword() {
+        var input = document.getElementById('password-input');
+        var error = document.getElementById('login-error');
+        // Simple password check - the password is hashed for basic obfuscation
+        // Password: TooYungTooSkinny
+        var correctHash = 'VG9vWXVuZ1Rvb1NraW5ueQ==';
+        var inputHash = btoa(input.value);
+
+        if (inputHash === correctHash) {
+          sessionStorage.setItem('fixla_admin_auth', 'authenticated');
+          document.getElementById('login-overlay').style.display = 'none';
+          document.getElementById('app').style.display = 'block';
+          error.classList.remove('show');
+          loadApp();
+        } else {
+          error.classList.add('show');
+          input.value = '';
+          input.focus();
+        }
+      }
+
+      // Allow Enter key to submit
+      document.getElementById('password-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          checkPassword();
+        }
+      });
+
+      function loadApp() {
+        var script = document.createElement('script');
+        script.type = 'module';
+        script.crossOrigin = true;
+        script.src = './assets/index-CAHjvnLH.js';
+        document.body.appendChild(script);
+      }
+    </script>
+  </body>
+</html>
