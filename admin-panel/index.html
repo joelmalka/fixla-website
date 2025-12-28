@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#16a34a" />
     <meta name="robots" content="noindex, nofollow" />
-    <link rel="stylesheet" crossorigin href="./assets/index-Biuf9tkj.css">
+    <link rel="stylesheet" crossorigin href="/admin-panel/assets/index-Biuf9tkj.css">
     <style>
       .login-overlay {
         position: fixed;
@@ -109,7 +109,6 @@
       function checkPassword() {
         var input = document.getElementById('password-input');
         var error = document.getElementById('login-error');
-        // Simple password check - the password is hashed for basic obfuscation
         // Password: TooYungTooSkinny
         var correctHash = 'VG9vWXVuZ1Rvb1NraW5ueQ==';
         var inputHash = btoa(input.value);
@@ -137,8 +136,8 @@
       function loadApp() {
         var script = document.createElement('script');
         script.type = 'module';
-        script.crossOrigin = true;
-        script.src = './assets/index-CAHjvnLH.js';
+        script.crossOrigin = 'anonymous';
+        script.src = '/admin-panel/assets/index-CAHjvnLH.js';
         document.body.appendChild(script);
       }
     </script>
