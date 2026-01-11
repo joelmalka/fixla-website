@@ -35,11 +35,202 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-    <!-- Resource Hints -->
-    <link rel="dns-prefetch" href="//images.unsplash.com">
-
     <!-- Stylesheet -->
     <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .contact-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-info h2 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgb(55, 181, 38);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .contact-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: white;
+        }
+
+        .contact-details h3 {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .contact-details p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .contact-details a {
+            color: rgb(55, 181, 38);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-details a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-form-container {
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-form-container h2 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .contact-form-container .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: rgb(55, 181, 38);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px 32px;
+            background: rgb(55, 181, 38);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: rgb(34, 101, 25);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .form-success.show {
+            display: block;
+        }
+
+        .form-success svg {
+            width: 60px;
+            height: 60px;
+            color: rgb(55, 181, 38);
+            margin-bottom: 15px;
+        }
+
+        .form-success h3 {
+            color: #2c3e50;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .form-success p {
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 0 20px;
+            }
+
+            .contact-info,
+            .contact-form-container {
+                padding: 30px 25px;
+            }
+        }
+    </style>
 
     <!-- Schema.org Structured Data -->
     <script type="application/ld+json">
@@ -52,7 +243,7 @@
         "@type": "LocalBusiness",
         "name": "Fixla",
         "email": "teamfixla@gmail.com",
-        "telephone": ["+358451567778", "+358405021215"],
+        "telephone": "+358405021215",
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Espoo",
@@ -81,7 +272,6 @@
                     <li><a href="/">Koti</a></li>
                     <li><a href="/sivut/palvelut">Palvelut</a></li>
                     <li><a href="/sivut/hinnasto">Hinnasto</a></li>
-                    <li><a href="/sivut/yhteystiedot" class="active">Yhteystiedot</a></li>
                     <li><a href="/sivut/tietoa">Tietoa Meistä</a></li>
                 </ul>
 
@@ -99,65 +289,98 @@
         </div>
     </section>
 
-    <!-- Contact Info Section -->
-    <section class="services-section">
+    <!-- Contact Section -->
+    <section class="contact-section">
         <div class="container">
-            <h2 class="scroll-reveal">Ota <span class="green-text">Yhteyttä</span></h2>
-            <p class="subtitle">Olemme täällä auttaaksemme sinua. Ota rohkeasti yhteyttä!</p>
+            <div class="contact-grid">
+                <!-- Contact Info -->
+                <div class="contact-info">
+                    <h2>Ota <span class="green-text">yhteyttä</span></h2>
 
-            <div class="services-grid">
-                <!-- Email Card -->
-                <div class="service-card">
-                    <div class="service-content" style="text-align: center; padding: 3rem 2rem;">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin: 0 auto 1.5rem;">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                            <polyline points="22,6 12,13 2,6"/>
-                        </svg>
-                        <h3>Sähköpostimme</h3>
-                        <p style="font-size: 1.125rem; margin-top: 1rem;">
-                            <a href="mailto:teamfixla@gmail.com" style="color: #4CAF50; text-decoration: none;">teamfixla@gmail.com</a>
-                        </p>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Sähköposti</h3>
+                            <p><a href="mailto:teamfixla@gmail.com">teamfixla@gmail.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                            </svg>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Soita tai viesti</h3>
+                            <p><a href="tel:0405021215">040 502 1215</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Sijainti</h3>
+                            <p>Espoo, Suomi</p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Phone Card -->
-                <div class="service-card">
-                    <div class="service-content" style="text-align: center; padding: 3rem 2rem;">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin: 0 auto 1.5rem;">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                <!-- Contact Form -->
+                <div class="contact-form-container">
+                    <h2>Lähetä <span class="green-text">viesti</span></h2>
+                    <p class="subtitle">Täytä lomake ja otamme sinuun yhteyttä mahdollisimman pian.</p>
+
+                    <form id="contact-form" action="https://formsubmit.co/teamfixla@gmail.com" method="POST">
+                        <!-- FormSubmit configuration -->
+                        <input type="hidden" name="_subject" value="Uusi yhteydenotto Fixla-sivustolta">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="_next" value="https://www.fixla.fi/sivut/yhteystiedot?success=true">
+                        <input type="text" name="_honey" style="display:none">
+
+                        <div class="form-group">
+                            <label for="name">Nimi *</label>
+                            <input type="text" id="name" name="Nimi" required placeholder="Nimesi">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Sähköposti *</label>
+                            <input type="email" id="email" name="Sähköposti" required placeholder="sinun@email.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Puhelinnumero *</label>
+                            <input type="tel" id="phone" name="Puhelinnumero" required placeholder="040 123 4567">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Viesti *</label>
+                            <textarea id="message" name="Viesti" required placeholder="Kirjoita viestisi tähän..."></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Lähetä viesti</button>
+                    </form>
+
+                    <div class="form-success" id="form-success">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
                         </svg>
-                        <h3>Puhelin</h3>
-                        <p style="font-size: 1.125rem; margin-top: 1rem;">
-                            <a href="tel:0405021215" style="color: #4CAF50; text-decoration: none; display: block;">040 502 1215</a>
-                            <a href="tel:0451567778" style="color: #4CAF50; text-decoration: none; display: block; margin-top: 0.5rem;">045 156 7778</a>
-                        </p>
+                        <h3>Kiitos viestistäsi!</h3>
+                        <p>Otamme sinuun yhteyttä mahdollisimman pian.</p>
                     </div>
                 </div>
-
-                <!-- Location Card -->
-                <div class="service-card">
-                    <div class="service-content" style="text-align: center; padding: 3rem 2rem;">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" style="margin: 0 auto 1.5rem;">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                            <circle cx="12" cy="10" r="3"/>
-                        </svg>
-                        <h3>Sijainti</h3>
-                        <p style="font-size: 1.125rem; margin-top: 1rem;">
-                            Espoo, Suomi<br>02140
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="about-section" style="background-image: url('../images/photo-1600880292203-757bb62b4baf.jpg');">
-        <div class="container">
-            <div class="about-content">
-                <h3>Aloita <span class="green-text">tänään</span></h3>
-                <p>Lataa Fixla-sovellus ja koe arjen palvelut uudella tavalla. Helppo, nopea ja joustava tapa tilata tarvitsemasi apu.</p>
-                <a href="#" onclick="redirectToAppStore(); return false;" class="btn-primary">Lataa Fixla</a>
             </div>
         </div>
     </section>
@@ -173,7 +396,6 @@
                 <div class="footer-col">
                     <h4>OTA YHTEYTTÄ</h4>
                     <p><a href="mailto:teamfixla@gmail.com">teamfixla@gmail.com</a></p>
-                    <p><a href="tel:0451567778">045 156 7778</a></p>
                     <p><a href="tel:0405021215">040 502 1215</a></p>
                 </div>
             </div>
@@ -214,20 +436,24 @@
         function redirectToAppStore() {
             const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-            // Check if iOS
             if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
                 window.location.href = 'https://apps.apple.com/fi/app/fixla/id6751362626';
                 return;
             }
 
-            // Check if Android
             if (/android/i.test(userAgent)) {
                 window.location.href = 'https://play.google.com/store/apps/details?id=com.joelmalka.fixla&pcampaignid=web_share';
                 return;
             }
 
-            // For desktop or other devices, redirect to download page
             window.location.href = 'lataa.html';
+        }
+
+        // Check if redirected after successful form submission
+        if (window.location.search.includes('success=true')) {
+            document.getElementById('contact-form').style.display = 'none';
+            document.getElementById('form-success').classList.add('show');
+            document.querySelector('.contact-form-container .subtitle').style.display = 'none';
         }
     </script>
 </body>
