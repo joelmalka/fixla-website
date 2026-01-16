@@ -347,6 +347,7 @@ input[type="submit"].btn-primary {
     z-index: 2;
     max-width: 800px;
     margin: 0 auto;
+    padding-top: 100px;
 }
 
 .hero-content h1 {
