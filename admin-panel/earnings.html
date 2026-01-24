@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#16a34a" />
   <meta name="robots" content="noindex, nofollow" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <style>
     * {
       margin: 0;
@@ -412,22 +412,7 @@
   </div>
 
   <script>
-    // Supabase config
-    const SUPABASE_URL = 'https://ofgiuvjaalcridojramn.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9mZ2l1dmphYWxjcmlkb2pyYW1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYyMTM2NDEsImV4cCI6MjA2MTc4OTY0MX0.FE0tpB_fJ9W5UwPBtKZxsgjZG-UilPHJ0Lu70moU9J8';
-
-    let supabase;
-    let currentFilter = 'pending';
-    let allClaims = [];
-
-    // Check if already authenticated
-    (function() {
-      var auth = sessionStorage.getItem('fixla_admin_auth');
-      if (auth === 'authenticated') {
-        showApp();
-      }
-    })();
-
+    // Define functions first
     function checkPassword() {
       var input = document.getElementById('password-input');
       var error = document.getElementById('login-error');
@@ -444,12 +429,6 @@
         input.focus();
       }
     }
-
-    document.getElementById('password-input').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        checkPassword();
-      }
-    });
 
     function showApp() {
       document.getElementById('login-overlay').style.display = 'none';
@@ -621,6 +600,29 @@
         alert('Virhe: ' + error.message);
       }
     }
+
+    // Supabase config
+    const SUPABASE_URL = 'https://ofgiuvjaalcridojramn.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9mZ2l1dmphYWxjcmlkb2pyYW1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYyMTM2NDEsImV4cCI6MjA2MTc4OTY0MX0.FE0tpB_fJ9W5UwPBtKZxsgjZG-UilPHJ0Lu70moU9J8';
+
+    let supabase;
+    let currentFilter = 'pending';
+    let allClaims = [];
+
+    // Add enter key listener
+    document.getElementById('password-input').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        checkPassword();
+      }
+    });
+
+    // Check if already authenticated on page load
+    (function() {
+      var auth = sessionStorage.getItem('fixla_admin_auth');
+      if (auth === 'authenticated') {
+        showApp();
+      }
+    })();
   </script>
 </body>
 </html>
