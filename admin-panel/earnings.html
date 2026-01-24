@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#16a34a" />
   <meta name="robots" content="noindex, nofollow" />
-  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.47.12/dist/umd/supabase.min.js"></script>
   <style>
     * {
       margin: 0;
@@ -343,7 +343,7 @@
       <p>Laskutuspyynnöt / Earnings Claims</p>
       <div id="login-error" class="login-error">Väärä salasana. Yritä uudelleen.</div>
       <input type="password" id="password-input" placeholder="Salasana" autocomplete="off" />
-      <button onclick="checkPassword()">Kirjaudu</button>
+      <button type="button" onclick="checkPassword()">Kirjaudu</button>
     </div>
   </div>
 
@@ -414,16 +414,20 @@
   <script>
     // Define functions first
     function checkPassword() {
+      console.log('checkPassword called');
       var input = document.getElementById('password-input');
       var error = document.getElementById('login-error');
       var correctHash = 'VG9vWXVuZ1Rvb1NraW5ueQ==';
       var inputHash = btoa(input.value);
+      console.log('Checking password...');
 
       if (inputHash === correctHash) {
+        console.log('Password correct');
         sessionStorage.setItem('fixla_admin_auth', 'authenticated');
         error.classList.remove('show');
         showApp();
       } else {
+        console.log('Password incorrect');
         error.classList.add('show');
         input.value = '';
         input.focus();
