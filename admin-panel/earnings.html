@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8" />
+  <title>Fixla Admin - Laskutuspyynnöt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#16a34a" />
+  <meta name="robots" content="noindex, nofollow" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: #f3f4f6;
+      min-height: 100vh;
+    }
+    .login-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .login-box {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+    .login-box h1 {
+      margin: 0 0 8px 0;
+      font-size: 24px;
+      color: #1a1a2e;
+    }
+    .login-box p {
+      margin: 0 0 24px 0;
+      color: #666;
+      font-size: 14px;
+    }
+    .login-box input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+      transition: border-color 0.2s;
+    }
+    .login-box input:focus {
+      outline: none;
+      border-color: #16a34a;
+    }
+    .login-box button {
+      width: 100%;
+      padding: 14px 24px;
+      background: #16a34a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .login-box button:hover {
+      background: #15803d;
+    }
+    .login-error {
+      color: #dc2626;
+      margin-bottom: 16px;
+      font-size: 14px;
+      display: none;
+    }
+    .login-error.show {
+      display: block;
+    }
+    .logo-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    /* Main App Styles */
+    .app {
+      display: none;
+    }
+    .header {
+      background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+      color: white;
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header h1 {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .header-links {
+      display: flex;
+      gap: 16px;
+    }
+    .header-links a {
+      color: white;
+      text-decoration: none;
+      opacity: 0.9;
+      transition: opacity 0.2s;
+    }
+    .header-links a:hover {
+      opacity: 1;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .stat-card .label {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+    .stat-card .value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #111827;
+    }
+    .stat-card .value.pending {
+      color: #F97316;
+    }
+    .stat-card .value.paid {
+      color: #16a34a;
+    }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .tab {
+      padding: 10px 20px;
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .tab.active {
+      background: #F97316;
+      border-color: #F97316;
+      color: white;
+    }
+    .tab:hover:not(.active) {
+      border-color: #F97316;
+    }
+    .claims-table {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th {
+      background: #f9fafb;
+      padding: 14px 16px;
+      text-align: left;
+      font-weight: 600;
+      color: #374151;
+      border-bottom: 2px solid #e5e7eb;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    td {
+      padding: 16px;
+      border-bottom: 1px solid #f3f4f6;
+      vertical-align: middle;
+    }
+    tr:hover {
+      background: #fafafa;
+    }
+    .reference-code {
+      font-family: monospace;
+      font-size: 14px;
+      font-weight: 600;
+      background: #fef3c7;
+      padding: 4px 8px;
+      border-radius: 4px;
+      color: #92400e;
+    }
+    .amount {
+      font-weight: 700;
+      font-size: 16px;
+      color: #059669;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .status-badge.pending {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .status-badge.paid {
+      background: #d1fae5;
+      color: #065f46;
+    }
+    .status-badge.rejected {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-paid {
+      background: #16a34a;
+      color: white;
+    }
+    .btn-paid:hover {
+      background: #15803d;
+    }
+    .btn-reject {
+      background: #ef4444;
+      color: white;
+      margin-left: 8px;
+    }
+    .btn-reject:hover {
+      background: #dc2626;
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .y-tunnus {
+      font-family: monospace;
+      font-size: 13px;
+      color: #6b7280;
+    }
+    .worker-info {
+      line-height: 1.5;
+    }
+    .worker-name {
+      font-weight: 600;
+      color: #111827;
+    }
+    .worker-phone {
+      font-size: 13px;
+      color: #6b7280;
+    }
+    .date {
+      font-size: 13px;
+      color: #6b7280;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #6b7280;
+    }
+    .empty-state .icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #6b7280;
+    }
+    .notes-input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+    .refresh-btn {
+      background: white;
+      border: 2px solid #e5e7eb;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .refresh-btn:hover {
+      border-color: #F97316;
+    }
+    @media (max-width: 768px) {
+      .container {
+        padding: 16px;
+      }
+      .claims-table {
+        overflow-x: auto;
+      }
+      table {
+        min-width: 800px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Overlay -->
+  <div id="login-overlay" class="login-overlay">
+    <div class="login-box">
+      <div class="logo-icon">💰</div>
+      <h1>Fixla Admin</h1>
+      <p>Laskutuspyynnöt / Earnings Claims</p>
+      <div id="login-error" class="login-error">Väärä salasana. Yritä uudelleen.</div>
+      <input type="password" id="password-input" placeholder="Salasana" autocomplete="off" />
+      <button onclick="checkPassword()">Kirjaudu</button>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="app" class="app">
+    <div class="header">
+      <h1>💰 Laskutuspyynnöt</h1>
+      <div class="header-links">
+        <a href="/admin-panel/">← Admin Panel</a>
+        <button class="refresh-btn" onclick="loadClaims()">🔄 Päivitä</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="label">Odottaa laskua</div>
+          <div class="value pending" id="pending-count">-</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Odottava summa</div>
+          <div class="value pending" id="pending-amount">-</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Maksettu (tässä kuussa)</div>
+          <div class="value paid" id="paid-count">-</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Maksettu summa</div>
+          <div class="value paid" id="paid-amount">-</div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <div class="tab active" onclick="setFilter('pending')" id="tab-pending">Odottaa (pending)</div>
+        <div class="tab" onclick="setFilter('paid')" id="tab-paid">Maksettu (paid)</div>
+        <div class="tab" onclick="setFilter('all')" id="tab-all">Kaikki</div>
+      </div>
+
+      <!-- Claims Table -->
+      <div class="claims-table">
+        <div id="claims-loading" class="loading">Ladataan...</div>
+        <table id="claims-table" style="display: none;">
+          <thead>
+            <tr>
+              <th>Viite</th>
+              <th>Työntekijä</th>
+              <th>Y-tunnus</th>
+              <th>Summa</th>
+              <th>Pvm</th>
+              <th>Tila</th>
+              <th>Toiminnot</th>
+            </tr>
+          </thead>
+          <tbody id="claims-body">
+          </tbody>
+        </table>
+        <div id="empty-state" class="empty-state" style="display: none;">
+          <div class="icon">📋</div>
+          <p>Ei laskutuspyyntöjä</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Supabase config
+    const SUPABASE_URL = 'https://ofgiuvjaalcridojramn.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9mZ2l1dmphYWxjcmlkb2pyYW1uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYyMTM2NDEsImV4cCI6MjA2MTc4OTY0MX0.FE0tpB_fJ9W5UwPBtKZxsgjZG-UilPHJ0Lu70moU9J8';
+
+    let supabase;
+    let currentFilter = 'pending';
+    let allClaims = [];
+
+    // Check if already authenticated
+    (function() {
+      var auth = sessionStorage.getItem('fixla_admin_auth');
+      if (auth === 'authenticated') {
+        showApp();
+      }
+    })();
+
+    function checkPassword() {
+      var input = document.getElementById('password-input');
+      var error = document.getElementById('login-error');
+      var correctHash = 'VG9vWXVuZ1Rvb1NraW5ueQ==';
+      var inputHash = btoa(input.value);
+
+      if (inputHash === correctHash) {
+        sessionStorage.setItem('fixla_admin_auth', 'authenticated');
+        error.classList.remove('show');
+        showApp();
+      } else {
+        error.classList.add('show');
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    document.getElementById('password-input').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        checkPassword();
+      }
+    });
+
+    function showApp() {
+      document.getElementById('login-overlay').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+      initSupabase();
+    }
+
+    function initSupabase() {
+      supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      loadClaims();
+    }
+
+    async function loadClaims() {
+      document.getElementById('claims-loading').style.display = 'block';
+      document.getElementById('claims-table').style.display = 'none';
+      document.getElementById('empty-state').style.display = 'none';
+
+      try {
+        const { data, error } = await supabase
+          .from('earnings_claims')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        allClaims = data || [];
+        updateStats();
+        renderClaims();
+      } catch (error) {
+        console.error('Error loading claims:', error);
+        alert('Virhe ladattaessa: ' + error.message);
+      }
+
+      document.getElementById('claims-loading').style.display = 'none';
+    }
+
+    function updateStats() {
+      const pending = allClaims.filter(c => c.status === 'pending');
+      const thisMonth = new Date();
+      thisMonth.setDate(1);
+      thisMonth.setHours(0, 0, 0, 0);
+
+      const paidThisMonth = allClaims.filter(c =>
+        c.status === 'paid' && new Date(c.paid_at) >= thisMonth
+      );
+
+      document.getElementById('pending-count').textContent = pending.length;
+      document.getElementById('pending-amount').textContent =
+        pending.reduce((sum, c) => sum + parseFloat(c.amount), 0).toFixed(2) + '€';
+      document.getElementById('paid-count').textContent = paidThisMonth.length;
+      document.getElementById('paid-amount').textContent =
+        paidThisMonth.reduce((sum, c) => sum + parseFloat(c.amount), 0).toFixed(2) + '€';
+    }
+
+    function setFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('tab-' + filter).classList.add('active');
+      renderClaims();
+    }
+
+    function renderClaims() {
+      let filtered = allClaims;
+      if (currentFilter !== 'all') {
+        filtered = allClaims.filter(c => c.status === currentFilter);
+      }
+
+      const tbody = document.getElementById('claims-body');
+
+      if (filtered.length === 0) {
+        document.getElementById('claims-table').style.display = 'none';
+        document.getElementById('empty-state').style.display = 'block';
+        return;
+      }
+
+      document.getElementById('claims-table').style.display = 'table';
+      document.getElementById('empty-state').style.display = 'none';
+
+      tbody.innerHTML = filtered.map(claim => `
+        <tr>
+          <td><span class="reference-code">${claim.reference_code}</span></td>
+          <td>
+            <div class="worker-info">
+              <div class="worker-name">${claim.worker_name || '-'}</div>
+              <div class="worker-phone">${claim.worker_phone || '-'}</div>
+            </div>
+          </td>
+          <td><span class="y-tunnus">${claim.worker_y_tunnus || '-'}</span></td>
+          <td><span class="amount">${parseFloat(claim.amount).toFixed(2)}€</span></td>
+          <td><span class="date">${formatDate(claim.created_at)}</span></td>
+          <td><span class="status-badge ${claim.status}">${getStatusText(claim.status)}</span></td>
+          <td>
+            ${claim.status === 'pending' ? `
+              <button class="btn btn-paid" onclick="markAsPaid('${claim.id}')">Maksettu</button>
+              <button class="btn btn-reject" onclick="markAsRejected('${claim.id}')">Hylkää</button>
+            ` : `
+              <span class="date">${claim.paid_at ? formatDate(claim.paid_at) : ''}</span>
+            `}
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return '-';
+      const date = new Date(dateStr);
+      return date.toLocaleDateString('fi-FI', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    function getStatusText(status) {
+      switch(status) {
+        case 'pending': return 'Odottaa';
+        case 'paid': return 'Maksettu';
+        case 'rejected': return 'Hylätty';
+        default: return status;
+      }
+    }
+
+    async function markAsPaid(id) {
+      const claim = allClaims.find(c => c.id === id);
+      if (!confirm(`Merkitäänkö maksetuksi?\n\nViite: ${claim.reference_code}\nSumma: ${claim.amount}€\nTyöntekijä: ${claim.worker_name}`)) {
+        return;
+      }
+
+      try {
+        const { error } = await supabase
+          .from('earnings_claims')
+          .update({
+            status: 'paid',
+            paid_at: new Date().toISOString()
+          })
+          .eq('id', id);
+
+        if (error) throw error;
+
+        loadClaims();
+      } catch (error) {
+        console.error('Error updating claim:', error);
+        alert('Virhe: ' + error.message);
+      }
+    }
+
+    async function markAsRejected(id) {
+      const claim = allClaims.find(c => c.id === id);
+      const reason = prompt(`Hylkää pyyntö?\n\nViite: ${claim.reference_code}\n\nSyy (valinnainen):`);
+
+      if (reason === null) return; // cancelled
+
+      try {
+        const { error } = await supabase
+          .from('earnings_claims')
+          .update({
+            status: 'rejected',
+            notes: reason || null
+          })
+          .eq('id', id);
+
+        if (error) throw error;
+
+        loadClaims();
+      } catch (error) {
+        console.error('Error updating claim:', error);
+        alert('Virhe: ' + error.message);
+      }
+    }
+  </script>
+</body>
+</html>
