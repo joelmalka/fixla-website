@@ -314,7 +314,6 @@
                         </div>
                         <div class="contact-details">
                             <h3>Soita tai viesti</h3>
-                            <p><a href="tel:0451567778">045 156 7778</a> - Joel Malka</p>
                             <p><a href="tel:0405021215">040 502 1215</a> - Anton Laaksonen</p>
                         </div>
                     </div>
@@ -323,12 +322,12 @@
 
                 <!-- Contact Form -->
                 <div class="contact-form-container">
-                    <h2>Lähetä <span class="green-text">viesti</span></h2>
+                    <h2>Tilaa <span class="green-text">siivous</span></h2>
                     <p class="subtitle">Täytä lomake ja otamme sinuun yhteyttä mahdollisimman pian.</p>
 
                     <form id="contact-form" action="https://formsubmit.co/teamfixla@gmail.com" method="POST">
                         <!-- FormSubmit configuration -->
-                        <input type="hidden" name="_subject" value="Uusi yhteydenotto Fixla-sivustolta">
+                        <input type="hidden" name="_subject" value="Uusi siivoustilaus Fixla-sivustolta">
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" name="_template" value="table">
                         <input type="hidden" name="_next" value="https://www.fixla.fi/sivut/yhteystiedot?success=true">
@@ -340,21 +339,31 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="email">Sähköposti *</label>
-                            <input type="email" id="email" name="Sähköposti" required placeholder="sinun@email.com">
-                        </div>
-
-                        <div class="form-group">
                             <label for="phone">Puhelinnumero *</label>
                             <input type="tel" id="phone" name="Puhelinnumero" required placeholder="040 123 4567">
                         </div>
 
                         <div class="form-group">
-                            <label for="message">Viesti *</label>
-                            <textarea id="message" name="Viesti" required placeholder="Kirjoita viestisi tähän..."></textarea>
+                            <label for="address">Osoite *</label>
+                            <input type="text" id="address" name="Osoite" required placeholder="Katuosoite">
                         </div>
 
-                        <button type="submit" class="submit-btn">Lähetä viesti</button>
+                        <div class="form-group">
+                            <label for="postalcode">Postinumero *</label>
+                            <input type="text" id="postalcode" name="Postinumero" required placeholder="00100">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="entrance">Rappu / Kerros / Ovikoodi</label>
+                            <input type="text" id="entrance" name="Rappu/Kerros/Ovikoodi" placeholder="Esim. A, 3. krs, 1234">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="details">Lisätiedot / Ohjeet</label>
+                            <textarea id="details" name="Lisätiedot" placeholder="Kirjoita lisätiedot tai erityisohjeet tähän..."></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Varaa aika</button>
                     </form>
 
                     <div class="form-success" id="form-success">
@@ -362,7 +371,7 @@
                             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
                             <polyline points="22 4 12 14.01 9 11.01"/>
                         </svg>
-                        <h3>Kiitos viestistäsi!</h3>
+                        <h3>Kiitos tilauksestasi!</h3>
                         <p>Otamme sinuun yhteyttä mahdollisimman pian.</p>
                     </div>
                 </div>
