@@ -229,6 +229,10 @@
             .contact-form-container {
                 padding: 30px 25px;
             }
+
+            .duration-grid {
+                grid-template-columns: 1fr !important;
+            }
         }
     </style>
 
@@ -339,7 +343,7 @@
 
                         <div class="form-group">
                             <label>Siivouksen kesto * <span style="font-weight: 400; font-size: 12px; color: rgb(55, 181, 38);">(-70% ale)</span></label>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px;">
+                            <div class="duration-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px;">
                                 <label style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border: 1px solid #e5e7eb; border-radius: 8px; cursor: pointer; font-size: 14px;">
                                     <span style="display: flex; align-items: center;"><input type="radio" name="Siivouksen kesto" value="2h - 25€" required style="margin-right: 8px; accent-color: rgb(55, 181, 38);">2h</span>
                                     <span style="font-weight: 600; color: rgb(55, 181, 38);">25€</span>
