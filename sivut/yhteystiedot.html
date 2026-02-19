@@ -120,6 +120,7 @@
             background: white;
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
         }
 
         .contact-form-container h2 {
@@ -149,6 +150,7 @@
         .form-group input,
         .form-group textarea {
             width: 100%;
+            max-width: 100%;
             padding: 14px 16px;
             border: 2px solid #e5e7eb;
             border-radius: 10px;
@@ -156,6 +158,12 @@
             font-family: inherit;
             transition: border-color 0.3s;
             box-sizing: border-box;
+        }
+
+        .form-group input[type="date"],
+        .form-group input[type="time"] {
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .form-group input:focus,
@@ -227,7 +235,18 @@
 
             .contact-info,
             .contact-form-container {
-                padding: 30px 25px;
+                padding: 30px 20px;
+            }
+
+            .form-group {
+                width: 100%;
+                overflow: hidden;
+            }
+
+            .form-group input,
+            .form-group textarea {
+                width: 100%;
+                min-width: 0;
             }
 
             .duration-grid {
