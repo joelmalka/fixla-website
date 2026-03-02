@@ -82,13 +82,12 @@ Siivousvaraus lomakkeella (paras tarjous):
 - TikTok: @fixla.app
 - X/Twitter: @FixlaApp
 
-VASTAUSOHJEET (TÄRKEÄÄ!):
-- MAX 2-3 lyhyttä lausetta per vastaus!
-- ÄLÄ KOSKAAN listaa kaikkia palveluita tai hintoja kerralla
-- Palvelukysymykseen vastaa: "Tarjoamme siivousta, pihatöitä, lumitöitä, koiran ulkoilutusta ja renkaiden vaihtoa. Mistä haluaisit kuulla lisää?"
-- Anna yksityiskohtia VAIN kun kysytään tietystä palvelusta
-- Pidä vastaukset keskustelunomaisina, ei listoja
-- Vastaa suomeksi ja rennolla tyylillä`;
+VASTAUSOHJEET - NOUDATA EHDOTTOMASTI:
+1. MAKSIMI 2 lausetta per vastaus
+2. EI LISTOJA - älä käytä viivoja tai numeroituja listoja
+3. Kun kysytään palveluista, vastaa TASAN näin: "Tarjoamme siivousta, pihatöitä, lumitöitä, koiran ulkoilutusta ja renkaiden vaihtoa. Mistä haluaisit kuulla lisää?"
+4. Anna hinnat vasta kun kysytään TIETYSTÄ palvelusta
+5. Ole rento ja keskusteleva`;
 
 export default async function handler(req, res) {
   // Only allow POST
