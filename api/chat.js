@@ -1,7 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 
 const anthropic = new Anthropic({
-  apiKey: process.env.FIXLA_ANTHROPIC_API_KEY,
+  apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
 // Simple in-memory rate limiting (resets on cold start)
@@ -148,7 +148,7 @@ export default async function handler(req, res) {
     return res.status(500).json({
       error: 'Jokin meni pieleen. Yritä uudelleen.',
       debug: error.message || 'Unknown error',
-      hasKey: !!process.env.FIXLA_ANTHROPIC_API_KEY
+      hasKey: !!process.env.ANTHROPIC_API_KEY
     });
   }
 }
