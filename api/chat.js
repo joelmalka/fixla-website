@@ -82,7 +82,13 @@ Siivousvaraus lomakkeella (paras tarjous):
 - TikTok: @fixla.app
 - X/Twitter: @FixlaApp
 
-Vastaa aina suomeksi, ystävällisesti ja ytimekkäästi. Ohjaa siivousta varaavat asiakkaat lomakkeeseen (paras hinta). Muille palveluille ohjaa lataamaan sovellus.`;
+VASTAUSOHJEET:
+- Vastaa LYHYESTI, max 2-3 lausetta kerrallaan
+- Älä listaa kaikkea kerralla - anna yleiskuva ja kysy "Mistä palvelusta haluaisit tietää lisää?"
+- Jos kysytään palveluista, mainitse pääkategoriat lyhyesti (siivous, pihatyöt, lumityöt, koiran ulkoilutus, renkaiden vaihto) ja kysy mistä haluaa lisätietoa
+- Anna hinnat vain kun niitä kysytään tietystä palvelusta
+- Ohjaa siivousta varaavat lomakkeeseen (paras hinta), muut lataamaan sovellus
+- Vastaa suomeksi, ystävällisesti ja rennolla tyylillä`;
 
 export default async function handler(req, res) {
   // Only allow POST
