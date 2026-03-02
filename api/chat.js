@@ -70,6 +70,9 @@ Lataa Fixla-sovellus ja varaa palvelu sieltä!
 - Puhelin: 040 502 1215 (Anton Laaksonen)
 - Puhelin: 045 156 7778 (Joel Malka)
 
+=== AUKIOLO ===
+Palvelut saatavilla joka päivä klo 8-20. Voit tehdä tilauksen sovelluksessa milloin vain.
+
 === SOSIAALISET MEDIAT ===
 - Instagram: @fixla.app
 - Facebook: Fixla

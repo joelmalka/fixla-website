@@ -268,10 +268,10 @@
         <div class="fixla-message bot">Hei! Olen Fixlan avustaja. Voin auttaa sinua kaikissa palveluissamme - siivous, pihatyöt, lumityöt, koiran ulkoilutus ja muut. Kysy rohkeasti!</div>
       </div>
       <div class="fixla-quick-buttons" id="fixla-quick-buttons">
-        <button class="fixla-quick-btn" data-question="Mitä palveluita tarjoatte?">Palvelut</button>
-        <button class="fixla-quick-btn" data-question="Paljonko siivous maksaa?">Siivous</button>
-        <button class="fixla-quick-btn" data-question="Miten Fixla toimii?">Näin toimii</button>
-        <button class="fixla-quick-btn" data-question="Missä toimitte?">Toimialue</button>
+        <button class="fixla-quick-btn" data-question="Miten tilaan palvelun?">Miten tilaan</button>
+        <button class="fixla-quick-btn" data-question="Mitä palveluita tarjoatte?">Mitä palveluita</button>
+        <button class="fixla-quick-btn" data-question="Millä alueella toimitte?">Millä alueella</button>
+        <button class="fixla-quick-btn" data-question="Mitkä ovat aukioloaikanne?">Aukiolo</button>
       </div>
       <div class="fixla-chat-input-area">
         <input type="text" class="fixla-chat-input" id="fixla-chat-input" placeholder="Kirjoita viesti..." maxlength="500">
