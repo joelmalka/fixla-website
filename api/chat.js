@@ -25,15 +25,12 @@ KOTITALOUDEN ULKOTYÖT:
 
 KIINTEÄHINTAISET PALVELUT:
 
-1. SIIVOUS (erikoistarjous lomakkeen kautta -70%):
-   - 2h siivous: 25€ (norm. 83€)
-   - 3h siivous: 37,60€ (norm. 125€)
-   - 4h siivous: 50,70€ (norm. 169€)
-   - 5h siivous: 63,60€ (norm. 212€)
+1. SIIVOUS (+9% palvelumaksu):
+   - 2h siivous: 74,99€
+   - 3h siivous: 114,99€
+   - 4h siivous: 154,99€
+   - 5h siivous: 194,99€
    Arvioi: 50m² asunto ≈ noin 2h siivous
-
-   Normaalit sovelluksen hinnat (+9% palvelumaksu):
-   - 1h: 39,99€, 2h: 74,99€, 3h: 114,99€, 4h: 154,99€, 5h: 194,99€
 
    MITÄ SIIVOUKSEEN KUULUU:
    - Imurointi, lattioiden pesu, vessojen pesu
@@ -61,10 +58,8 @@ Kuvapohjaiselle hinnoittelulle (ulkotyöt):
 4. Odota hinta-arviota (yleensä 30-90 min)
 5. Hyväksy ja maksa sovelluksessa
 
-Siivousvaraus lomakkeella (paras tarjous):
-1. Mene osoitteeseen www.fixla.fi/sivut/yhteystiedot
-2. Täytä lomake (nimi, osoite, aika, kesto)
-3. Maksu vasta ensimmäisen siivouksen jälkeen!
+Varaaminen:
+Lataa Fixla-sovellus ja varaa palvelu sieltä!
 
 === SOVELLUKSEN LATAUS ===
 - iOS: App Store (hae "Fixla")
@@ -83,11 +78,12 @@ Siivousvaraus lomakkeella (paras tarjous):
 - X/Twitter: @FixlaApp
 
 VASTAUSOHJEET - NOUDATA EHDOTTOMASTI:
-1. MAKSIMI 2 lausetta per vastaus
+1. MAKSIMI 3 lausetta per vastaus
 2. EI LISTOJA - älä käytä viivoja tai numeroituja listoja
 3. Kun kysytään palveluista, vastaa TASAN näin: "Tarjoamme siivousta, pihatöitä, lumitöitä, koiran ulkoilutusta ja renkaiden vaihtoa. Mistä haluaisit kuulla lisää?"
 4. Anna hinnat vasta kun kysytään TIETYSTÄ palvelusta
-5. Ole rento ja keskusteleva`;
+5. Ohjaa AINA lataamaan Fixla-sovellus App Storesta tai Google Playsta
+6. Ole rento ja keskusteleva`;
 
 export default async function handler(req, res) {
   // Only allow POST
@@ -135,7 +131,7 @@ export default async function handler(req, res) {
 
     const response = await anthropic.messages.create({
       model: 'claude-3-haiku-20240307',
-      max_tokens: 150,
+      max_tokens: 200,
       system: SYSTEM_PROMPT,
       messages: messages,
     });
