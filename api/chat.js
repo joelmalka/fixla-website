@@ -144,6 +144,11 @@ export default async function handler(req, res) {
 
   } catch (error) {
     console.error('Chat error:', error);
-    return res.status(500).json({ error: 'Jokin meni pieleen. Yritä uudelleen.' });
+    // Return more details for debugging
+    return res.status(500).json({
+      error: 'Jokin meni pieleen. Yritä uudelleen.',
+      debug: error.message || 'Unknown error',
+      hasKey: !!process.env.FIXLA_ANTHROPIC_API_KEY
+    });
   }
 }
