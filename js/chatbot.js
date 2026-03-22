@@ -265,7 +265,7 @@
         </button>
       </div>
       <div class="fixla-chat-messages" id="fixla-chat-messages">
-        <div class="fixla-message bot">Hei! Olen Fixlan avustaja. Voin auttaa sinua kaikissa palveluissamme - siivous, pihatyöt, lumityöt, koiran ulkoilutus ja renkaiden vaihto. Kysy rohkeasti!</div>
+        <div class="fixla-message bot">Hei! Olen Fixlan avustaja. Voin auttaa sinua kaikissa palveluissamme - siivous, pihatyöt, renkaiden vaihto, koiran ulkoilutus ja lumityöt. Kysy rohkeasti!</div>
       </div>
       <div class="fixla-quick-buttons" id="fixla-quick-buttons">
         <button class="fixla-quick-btn" data-question="Miten tilaan palvelun?">Miten tilaan</button>
