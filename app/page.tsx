@@ -141,7 +141,7 @@ export default function LandingPage() {
           <h1 className="text-2xl font-extrabold tracking-tight text-fixla-600">Fixla</h1>
           <button
             type="button"
-            onClick={() => router.push('/kirjaudu')}
+            onClick={() => router.push('/kirjaudu?mode=signin')}
             className="text-sm font-semibold text-gray-700 hover:text-fixla-700"
           >
             Kirjaudu sisään

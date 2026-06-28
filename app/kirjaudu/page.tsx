@@ -33,7 +33,7 @@ function AuthInner() {
   const router = useRouter();
   const params = useSearchParams();
   const nextUrl = params.get('next') || '/palvelut';
-  const [mode, setMode] = useState<Mode>('signup');
+  const [mode, setMode] = useState<Mode>(params.get('mode') === 'signin' ? 'signin' : 'signup');
 
   // Sign-up state
   const [country, setCountry] = useState(COUNTRIES[0]);
