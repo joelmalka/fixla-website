@@ -1,22 +1,5 @@
 {
-  "cleanUrls": true,
-  "redirects": [
-    {
-      "source": "/pages/:path*",
-      "destination": "/sivut/:path*",
-      "permanent": true
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/admin-panel",
-      "destination": "/admin-panel/index.html"
-    },
-    {
-      "source": "/admin-panel/(.*)",
-      "destination": "/admin-panel/$1"
-    }
-  ],
+  "framework": "nextjs",
   "headers": [
     {
       "source": "/admin-panel/(.*)",

@@ -1,0 +1,23 @@
+node_modules
+.next
+.vercel
+out
+build
+dist
+tsconfig.tsbuildinfo
+
+# env
+.env
+.env.local
+.env*.local
+
+# IDE
+.idea
+.vscode
+
+# OS
+.DS_Store
+*.log
+
+# Old marketing files (archived in _old)
+_old/
