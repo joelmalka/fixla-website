@@ -13,7 +13,7 @@ import { readPreferredAddress, writePreferredAddress } from '@/lib/preferredAddr
 import { supabase } from '@/lib/supabase';
 import HomeHeroGrid from '@/components/HomeHeroGrid';
 import AddressDetailsModal, { AddressDetails } from '@/components/AddressDetailsModal';
-import CampaignBanner from '@/components/CampaignBanner';
+import CampaignHeroCallout from '@/components/CampaignHeroCallout';
 import { activateCampaignFromToken } from '@/lib/campaign';
 
 type SavedAddress = {
@@ -160,7 +160,6 @@ export default function LandingPage() {
 
   return (
     <main className="min-h-screen bg-white">
-      <CampaignBanner />
       {/* Header */}
       <header className="border-b border-gray-100">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-5">
@@ -201,6 +200,8 @@ export default function LandingPage() {
             <p className="mt-4 text-base text-gray-600 md:text-lg">
               Mihin osoitteeseen tarvitset apua?
             </p>
+
+            <CampaignHeroCallout />
 
             {signedIn && savedAddresses.length > 0 ? (
               <div className="mx-auto mt-6 w-full max-w-xl md:mx-0">
