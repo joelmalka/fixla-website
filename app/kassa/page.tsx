@@ -11,7 +11,7 @@ import {
 } from '@/lib/orderSession';
 import { reconcileAddress } from '@/lib/addressSync';
 import { getServiceBySlug } from '@/lib/services';
-import { campaignForService, campaignDiscount } from '@/lib/campaign';
+import { campaignForService, campaignDiscount, campaignAlreadyUsed } from '@/lib/campaign';
 import { supabase } from '@/lib/supabase';
 import { readPendingPhone, clearPendingPhone } from '@/lib/pendingPhone';
 import CustomerTabBar from '@/components/CustomerTabBar';
@@ -29,6 +29,7 @@ export default function CheckoutPage() {
   const [promoInput, setPromoInput] = useState('');
   const [appliedPromo, setAppliedPromo] = useState<{ code: string; discount: number } | null>(null);
   const [promoError, setPromoError] = useState('');
+  const [campaignUsed, setCampaignUsed] = useState(false);
 
   // Tip
   const [tipPercent, setTipPercent] = useState<number>(0);
@@ -68,13 +69,28 @@ export default function CheckoutPage() {
   }, [router]);
 
   // Auto-apply a marketing campaign discount (e.g. /?tarjous=siivous30) for the
-  // matching service — no promo code needed. Runs once the order is hydrated.
+  // matching service — no promo code needed. One-time per account: skip if this
+  // user already has an order with the campaign code.
   useEffect(() => {
     if (!session) return;
     const c = campaignForService(session.serviceSlug);
-    if (c && !appliedPromo) {
-      setAppliedPromo({ code: c.code, discount: campaignDiscount(c, session.price ?? 0) });
-    }
+    if (!c || appliedPromo) return;
+    let cancelled = false;
+    (async () => {
+      const { data } = await supabase.auth.getUser();
+      const user = data.user;
+      if (!user || cancelled) return;
+      if (await campaignAlreadyUsed(supabase, user.id, c.code)) {
+        if (!cancelled) setCampaignUsed(true);
+        return;
+      }
+      if (!cancelled) {
+        setAppliedPromo({ code: c.code, discount: campaignDiscount(c, session.price ?? 0) });
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session]);
 
@@ -260,6 +276,11 @@ export default function CheckoutPage() {
                   </div>
                   {promoError ? (
                     <p className="mt-2 text-xs text-red-600">{promoError}</p>
+                  ) : null}
+                  {campaignUsed ? (
+                    <p className="mt-2 text-xs text-gray-500">
+                      Kampanjatarjous on jo käytetty tällä tilillä.
+                    </p>
                   ) : null}
                 </>
               )}

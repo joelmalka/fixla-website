@@ -78,3 +78,23 @@ export function campaignForService(slug: string | undefined | null): Campaign | 
 export function campaignDiscount(c: Campaign, subtotal: number): number {
   return Math.round(subtotal * (c.percent / 100) * 100) / 100;
 }
+
+/**
+ * One-time-per-user enforcement: true if this account already has an order
+ * recorded with the campaign's promo code. RLS lets users read their own
+ * orders, so this is checked client-side before the discount is applied (and
+ * before the payment intent is created), tying the limit to the account.
+ */
+export async function campaignAlreadyUsed(
+  supabase: { from: (t: string) => any },
+  userId: string,
+  code: string,
+): Promise<boolean> {
+  const { data } = await supabase
+    .from('orders')
+    .select('id')
+    .eq('customer_id', userId)
+    .eq('promo_code', code)
+    .limit(1);
+  return Array.isArray(data) && data.length > 0;
+}
