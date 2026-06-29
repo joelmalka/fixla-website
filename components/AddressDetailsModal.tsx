@@ -95,13 +95,13 @@ export default function AddressDetailsModal({
             <button
               type="button"
               onClick={onClose}
-              className="h-12 flex-1 rounded-2xl border border-gray-200 bg-white text-sm font-semibold text-gray-700 hover:bg-gray-50"
+              className="h-14 flex-1 rounded-2xl border border-gray-200 bg-white text-base font-semibold text-gray-700 hover:bg-gray-50"
             >
               Ohita
             </button>
             <button
               type="submit"
-              className="h-12 flex-[2] rounded-2xl bg-fixla-600 text-sm font-semibold text-white hover:bg-fixla-700"
+              className="h-14 flex-[2] rounded-2xl bg-fixla-600 text-base font-semibold text-white hover:bg-fixla-700"
             >
               Tallenna ja jatka
             </button>
@@ -133,7 +133,7 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="mt-2 h-12 w-full rounded-2xl border border-gray-200 bg-white px-4 text-sm text-gray-900 placeholder-gray-400 outline-none focus:border-fixla-600"
+        className="mt-2 h-14 w-full rounded-2xl border border-gray-200 bg-white px-4 text-base text-gray-900 placeholder-gray-400 outline-none focus:border-fixla-600"
       />
     </div>
   );
