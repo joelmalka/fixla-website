@@ -139,13 +139,23 @@ export default function LandingPage() {
       <header className="border-b border-gray-100">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-5">
           <h1 className="text-2xl font-extrabold tracking-tight text-fixla-600">Fixla</h1>
-          <button
-            type="button"
-            onClick={() => router.push('/kirjaudu?mode=signin')}
-            className="text-sm font-semibold text-gray-700 hover:text-fixla-700"
-          >
-            Kirjaudu sisään
-          </button>
+          {signedIn ? (
+            <button
+              type="button"
+              onClick={() => router.push('/tilaukset')}
+              className="text-sm font-semibold text-gray-700 hover:text-fixla-700"
+            >
+              Tilaukseni
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => router.push('/kirjaudu?mode=signin')}
+              className="text-sm font-semibold text-gray-700 hover:text-fixla-700"
+            >
+              Kirjaudu sisään
+            </button>
+          )}
         </div>
       </header>
 

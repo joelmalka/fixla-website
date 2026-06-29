@@ -32,7 +32,9 @@ function fullPhone(dial: string, phone: string): string {
 function AuthInner() {
   const router = useRouter();
   const params = useSearchParams();
-  const nextUrl = params.get('next') || '/palvelut';
+  // Default landing after a plain login is the home hub, NOT /palvelut —
+  // /palvelut bounces to / when there's no in-progress order (no address).
+  const nextUrl = params.get('next') || '/';
   const [mode, setMode] = useState<Mode>(params.get('mode') === 'signin' ? 'signin' : 'signup');
 
   // Sign-up state
