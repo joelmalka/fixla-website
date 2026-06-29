@@ -5,7 +5,13 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SERVICES, ServiceMeta } from '@/lib/services';
-import { readOrderSession, patchOrderSession, formatFullAddress } from '@/lib/orderSession';
+import {
+  readOrderSession,
+  writeOrderSession,
+  patchOrderSession,
+  formatFullAddress,
+} from '@/lib/orderSession';
+import { readPreferredAddress } from '@/lib/preferredAddress';
 import { reconcileAddress } from '@/lib/addressSync';
 import { supabase } from '@/lib/supabase';
 import CustomerTabBar from '@/components/CustomerTabBar';
@@ -19,18 +25,35 @@ export default function ServicesPage() {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    const session = readOrderSession();
+    let session = readOrderSession();
     if (!session?.address) {
-      router.replace('/');
-      return;
+      // The cart session is cleared after an order completes. Rebuild it from
+      // the last-used address so returning to Palvelut shows services instead
+      // of bouncing to the home/address screen.
+      const pref = readPreferredAddress();
+      if (pref?.address) {
+        session = {
+          address: pref.address,
+          city: pref.city,
+          postalCode: pref.postalCode ?? null,
+          country: pref.country ?? 'FI',
+          apartment: pref.apartment ?? null,
+          floor: pref.floor ?? null,
+        };
+        writeOrderSession(session);
+      } else {
+        router.replace('/');
+        return;
+      }
     }
     // If signed in, ensure the session uses their saved primary (or save the
     // typed one if they have nothing yet) BEFORE showing the address pill.
+    const current = session;
     (async () => {
       const { data } = await supabase.auth.getSession();
       const reconciled = data.session
-        ? await reconcileAddress(data.session.user.id, session)
-        : session;
+        ? await reconcileAddress(data.session.user.id, current)
+        : current;
       setAddress(formatFullAddress(reconciled));
       setHydrated(true);
     })();
