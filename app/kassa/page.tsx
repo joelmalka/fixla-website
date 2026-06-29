@@ -282,7 +282,9 @@ export default function CheckoutPage() {
             {/* Tip */}
             <div className="rounded-2xl border border-gray-200 bg-white p-5">
               <h2 className="text-lg font-bold text-gray-900">Tippi (valinnainen)</h2>
-              <p className="mt-1 text-sm text-gray-600">Kiitä tekijää hyvästä työstä.</p>
+              <p className="mt-1 text-sm text-gray-600">
+                Voit halutessasi lisätä tipin tekijälle. 100 % tipistä menee tekijälle.
+              </p>
               <div className="mt-4 grid grid-cols-5 gap-2">
                 {TIP_OPTIONS.map((p) => (
                   <button
