@@ -53,20 +53,37 @@ export default function LandingPage() {
 
   useEffect(() => {
     let active = true;
-    supabase.auth.getSession().then(async ({ data }) => {
-      if (!active || !data.session) return;
+
+    // Load sign-in state + saved addresses for a given session. Driven by BOTH
+    // the initial getSession AND onAuthStateChange, so the header updates after
+    // an OAuth redirect lands here (the token is processed async — a one-shot
+    // getSession misses it and the page would otherwise look logged-out).
+    const loadForSession = async (session: { user: { id: string } } | null) => {
+      if (!active) return;
+      if (!session) {
+        setSignedIn(false);
+        setSavedAddresses([]);
+        return;
+      }
       setSignedIn(true);
       const { data: rows } = await supabase
         .from('customer_addresses')
         .select('id, label, address_line_1, city, postal_code, country, is_primary')
-        .eq('customer_id', data.session.user.id)
+        .eq('customer_id', session.user.id)
         .order('is_primary', { ascending: false })
         .order('created_at', { ascending: false });
       if (!active || !rows) return;
       setSavedAddresses(rows as SavedAddress[]);
+    };
+
+    supabase.auth.getSession().then(({ data }) => loadForSession(data.session));
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      loadForSession(session);
     });
+
     return () => {
       active = false;
+      sub.subscription.unsubscribe();
     };
   }, []);
 
