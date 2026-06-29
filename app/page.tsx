@@ -13,6 +13,8 @@ import { readPreferredAddress, writePreferredAddress } from '@/lib/preferredAddr
 import { supabase } from '@/lib/supabase';
 import HomeHeroGrid from '@/components/HomeHeroGrid';
 import AddressDetailsModal, { AddressDetails } from '@/components/AddressDetailsModal';
+import CampaignBanner from '@/components/CampaignBanner';
+import { activateCampaignFromToken } from '@/lib/campaign';
 
 type SavedAddress = {
   id: string;
@@ -34,6 +36,12 @@ export default function LandingPage() {
     useState<ReturnType<typeof isInServiceArea>['city']>(undefined);
   const [savedAddresses, setSavedAddresses] = useState<SavedAddress[]>([]);
   const [signedIn, setSignedIn] = useState(false);
+
+  // Capture a marketing campaign from the ad link, e.g. /?tarjous=siivous30
+  useEffect(() => {
+    const token = new URLSearchParams(window.location.search).get('tarjous');
+    activateCampaignFromToken(token);
+  }, []);
 
   // Hydrate the input from the last address the user used on this device
   useEffect(() => {
@@ -152,6 +160,7 @@ export default function LandingPage() {
 
   return (
     <main className="min-h-screen bg-white">
+      <CampaignBanner />
       {/* Header */}
       <header className="border-b border-gray-100">
         <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-5">

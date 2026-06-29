@@ -11,6 +11,7 @@ import {
 } from '@/lib/orderSession';
 import { reconcileAddress } from '@/lib/addressSync';
 import { getServiceBySlug } from '@/lib/services';
+import { campaignForService, campaignDiscount } from '@/lib/campaign';
 import { supabase } from '@/lib/supabase';
 import { readPendingPhone, clearPendingPhone } from '@/lib/pendingPhone';
 import CustomerTabBar from '@/components/CustomerTabBar';
@@ -65,6 +66,17 @@ export default function CheckoutPage() {
       setHydrated(true);
     });
   }, [router]);
+
+  // Auto-apply a marketing campaign discount (e.g. /?tarjous=siivous30) for the
+  // matching service — no promo code needed. Runs once the order is hydrated.
+  useEffect(() => {
+    if (!session) return;
+    const c = campaignForService(session.serviceSlug);
+    if (c && !appliedPromo) {
+      setAppliedPromo({ code: c.code, discount: campaignDiscount(c, session.price ?? 0) });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session]);
 
   const service = session ? getServiceBySlug(session.serviceSlug!) : null;
   const subtotal = session?.price ?? 0;

@@ -1,8 +1,9 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { patchOrderSession } from '@/lib/orderSession';
+import { Campaign, campaignForService } from '@/lib/campaign';
 import { ScheduleBlock, ScheduleMode, scheduledForFrom, useSchedule } from './configShared';
 
 type Pricing = '2hours' | '3hours' | 'custom';
@@ -45,6 +46,16 @@ export default function CleaningConfig() {
   const [time, setTime] = useState('09:00');
 
   const price = useMemo(() => priceFor(pricing, customHours), [pricing, customHours]);
+
+  // Marketing campaign (e.g. /?tarjous=siivous30) — the discount is applied at
+  // checkout; here we just preview the discounted price for the customer.
+  const [campaign, setCampaign] = useState<Campaign | null>(null);
+  useEffect(() => {
+    setCampaign(campaignForService('siivous'));
+  }, []);
+  const discountedPrice = campaign
+    ? Math.round(price * (1 - campaign.percent / 100) * 100) / 100
+    : price;
 
   const handleContinue = () => {
     patchOrderSession({
@@ -151,7 +162,21 @@ export default function CleaningConfig() {
         <div className="flex items-center justify-between gap-4">
           <div>
             <p className="text-xs uppercase tracking-wide text-gray-500">Hinta</p>
-            <p className="text-2xl font-extrabold text-gray-900">{price.toFixed(2)}€</p>
+            {campaign ? (
+              <div className="flex items-center gap-2">
+                <p className="text-2xl font-extrabold text-fixla-700">
+                  {discountedPrice.toFixed(2)}€
+                </p>
+                <p className="text-sm font-semibold text-gray-400 line-through">
+                  {price.toFixed(2)}€
+                </p>
+                <span className="rounded-full bg-fixla-600 px-2 py-0.5 text-xs font-bold text-white">
+                  −{campaign.percent} %
+                </span>
+              </div>
+            ) : (
+              <p className="text-2xl font-extrabold text-gray-900">{price.toFixed(2)}€</p>
+            )}
             <p className="text-xs text-gray-500">{durationLabel(pricing, customHours)}</p>
           </div>
           <button

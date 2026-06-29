@@ -11,6 +11,7 @@ import { supabase } from '@/lib/supabase';
 import CustomerTabBar from '@/components/CustomerTabBar';
 import DesktopNav from '@/components/DesktopNav';
 import FixlaLogo from '@/components/FixlaLogo';
+import CampaignBanner from '@/components/CampaignBanner';
 
 export default function ServicesPage() {
   const router = useRouter();
@@ -46,6 +47,7 @@ export default function ServicesPage() {
 
   return (
     <main className="min-h-screen bg-gray-50 pb-24 md:pb-12">
+      <CampaignBanner />
       {/* Header: stacked on mobile, row on desktop */}
       <header className="border-b border-gray-100 bg-white">
         {/* Mobile: centered stack */}
