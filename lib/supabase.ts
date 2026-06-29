@@ -12,5 +12,10 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
+    // PKCE returns the auth result as a ?code= query param (exchanged on load)
+    // instead of a #hash token. Next.js App Router reliably preserves query
+    // params; URL hash fragments were being dropped, so OAuth logins silently
+    // failed to establish a session on the redirect landing page.
+    flowType: 'pkce',
   },
 });
