@@ -1,10 +1,12 @@
 /**
  * Marketing campaigns activated via a deep link, e.g. /?tarjous=siivous30.
  *
- * The campaign token is captured on the landing page, stored in localStorage,
- * and the discount auto-applies at checkout for the matching service — the
- * customer never types a promo code. The campaign's `code` is recorded on the
- * order (via payment metadata) so campaign orders are trackable.
+ * The campaign token is captured on the landing page and stored in
+ * sessionStorage, so the discount only applies to the browsing session that
+ * was opened via the ad link — a later normal visit (new tab/session) gets no
+ * discount. It auto-applies at checkout for the matching service (no promo code
+ * typed). The campaign's `code` is recorded on the order (via payment metadata)
+ * so campaign orders are trackable.
  */
 
 export interface Campaign {
@@ -39,7 +41,7 @@ export function activateCampaignFromToken(token: string | null | undefined): Cam
   if (!c) return null;
   if (typeof window !== 'undefined') {
     try {
-      window.localStorage.setItem(KEY, c.token);
+      window.sessionStorage.setItem(KEY, c.token);
     } catch {
       /* ignore */
     }
@@ -51,7 +53,7 @@ export function activateCampaignFromToken(token: string | null | undefined): Cam
 export function readCampaign(): Campaign | null {
   if (typeof window === 'undefined') return null;
   try {
-    const t = window.localStorage.getItem(KEY);
+    const t = window.sessionStorage.getItem(KEY);
     return t ? CAMPAIGNS[t] ?? null : null;
   } catch {
     return null;
@@ -61,7 +63,7 @@ export function readCampaign(): Campaign | null {
 export function clearCampaign(): void {
   if (typeof window === 'undefined') return;
   try {
-    window.localStorage.removeItem(KEY);
+    window.sessionStorage.removeItem(KEY);
   } catch {
     /* ignore */
   }
