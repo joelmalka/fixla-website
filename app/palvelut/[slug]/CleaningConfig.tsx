@@ -3,7 +3,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { patchOrderSession } from '@/lib/orderSession';
-import { Campaign, campaignForService } from '@/lib/campaign';
+import { Campaign, campaignForService, campaignAlreadyUsed } from '@/lib/campaign';
+import { supabase } from '@/lib/supabase';
 import { ScheduleBlock, ScheduleMode, scheduledForFrom, useSchedule } from './configShared';
 
 type Pricing = '2hours' | '3hours' | 'custom';
@@ -51,7 +52,19 @@ export default function CleaningConfig() {
   // checkout; here we just preview the discounted price for the customer.
   const [campaign, setCampaign] = useState<Campaign | null>(null);
   useEffect(() => {
-    setCampaign(campaignForService('siivous'));
+    const c = campaignForService('siivous');
+    if (!c) return;
+    let cancelled = false;
+    (async () => {
+      const { data } = await supabase.auth.getUser();
+      const user = data.user;
+      if (cancelled) return;
+      if (user && (await campaignAlreadyUsed(supabase, user.id, c.code))) return;
+      if (!cancelled) setCampaign(c);
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, []);
   const discountedPrice = campaign
     ? Math.round(price * (1 - campaign.percent / 100) * 100) / 100

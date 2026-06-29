@@ -29,7 +29,6 @@ export default function CheckoutPage() {
   const [promoInput, setPromoInput] = useState('');
   const [appliedPromo, setAppliedPromo] = useState<{ code: string; discount: number } | null>(null);
   const [promoError, setPromoError] = useState('');
-  const [campaignUsed, setCampaignUsed] = useState(false);
 
   // Tip
   const [tipPercent, setTipPercent] = useState<number>(0);
@@ -81,8 +80,7 @@ export default function CheckoutPage() {
       const user = data.user;
       if (!user || cancelled) return;
       if (await campaignAlreadyUsed(supabase, user.id, c.code)) {
-        if (!cancelled) setCampaignUsed(true);
-        return;
+        return; // one-time per account — already redeemed, no discount
       }
       if (!cancelled) {
         setAppliedPromo({ code: c.code, discount: campaignDiscount(c, session.price ?? 0) });
@@ -276,11 +274,6 @@ export default function CheckoutPage() {
                   </div>
                   {promoError ? (
                     <p className="mt-2 text-xs text-red-600">{promoError}</p>
-                  ) : null}
-                  {campaignUsed ? (
-                    <p className="mt-2 text-xs text-gray-500">
-                      Kampanjatarjous on jo käytetty tällä tilillä.
-                    </p>
                   ) : null}
                 </>
               )}
