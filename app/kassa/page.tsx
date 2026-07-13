@@ -12,6 +12,7 @@ import {
 import { reconcileAddress } from '@/lib/addressSync';
 import { getServiceBySlug } from '@/lib/services';
 import { campaignForService, campaignDiscount, campaignAlreadyUsed } from '@/lib/campaign';
+import { findWebPromo, webPromoDiscount } from '@/lib/promoCodes';
 import { supabase } from '@/lib/supabase';
 import { readPendingPhone, clearPendingPhone } from '@/lib/pendingPhone';
 import CustomerTabBar from '@/components/CustomerTabBar';
@@ -115,21 +116,31 @@ export default function CheckoutPage() {
     [discountedSubtotal, serviceFee, tipAmount],
   );
 
-  const handleApplyPromo = () => {
+  const handleApplyPromo = async () => {
     const code = promoInput.trim().toUpperCase();
     if (!code) return;
     setPromoError('');
-    // Minimal client-side validation — full validation happens at order insert.
-    // Hardcoded promos that work on first order:
-    if (code === 'KIITOS30') {
-      setAppliedPromo({ code, discount: Math.min(30, subtotal - 1) });
+    const promo = findWebPromo(code);
+    if (!promo) {
+      setPromoError('Koodi ei kelpaa');
       return;
     }
-    if (code === 'TERVETULOA') {
-      setAppliedPromo({ code, discount: Math.min(10, subtotal - 1) });
+    if (promo.expiry && new Date() > new Date(promo.expiry)) {
+      setPromoError('Koodi on vanhentunut');
       return;
     }
-    setPromoError('Koodi ei kelpaa');
+    if (promo.serviceSlugs && !promo.serviceSlugs.includes(session?.serviceSlug ?? '')) {
+      setPromoError('Koodi ei koske tätä palvelua');
+      return;
+    }
+    if (promo.oneTimeUse) {
+      const { data } = await supabase.auth.getUser();
+      if (data.user && (await campaignAlreadyUsed(supabase, data.user.id, promo.code))) {
+        setPromoError('Koodi on jo käytetty');
+        return;
+      }
+    }
+    setAppliedPromo({ code: promo.code, discount: webPromoDiscount(promo, subtotal) });
   };
 
   const handleContinue = () => {
