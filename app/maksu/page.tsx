@@ -120,7 +120,7 @@ export default function PaymentPage() {
   const service = getServiceBySlug(session.serviceSlug!);
 
   return (
-    <main className="min-h-screen bg-gray-50 pb-24 md:pb-12">
+    <main className="min-h-screen bg-gray-50 pb-40 md:pb-12">
       <header className="border-b border-gray-100 bg-white">
         <div className="flex flex-col items-center gap-3 px-5 py-4 md:hidden">
           <FixlaLogo size={50} />
