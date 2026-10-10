@@ -21,6 +21,9 @@ import FixlaLogo from '@/components/FixlaLogo';
 
 const TIP_OPTIONS = [0, 5, 10, 15] as const;
 
+// Services sold at a flat all-inclusive price — no 9% service fee (matches the app)
+const NO_SERVICE_FEE_SLUGS = ['renkaiden-vaihto'];
+
 export default function CheckoutPage() {
   const router = useRouter();
   const [hydrated, setHydrated] = useState(false);
@@ -98,9 +101,10 @@ export default function CheckoutPage() {
 
   const discount = appliedPromo?.discount ?? 0;
   const discountedSubtotal = Math.max(1, subtotal - discount);
+  const hasServiceFee = !NO_SERVICE_FEE_SLUGS.includes(session?.serviceSlug ?? '');
   const serviceFee = useMemo(
-    () => Math.round(discountedSubtotal * 0.09 * 100) / 100,
-    [discountedSubtotal],
+    () => (hasServiceFee ? Math.round(discountedSubtotal * 0.09 * 100) / 100 : 0),
+    [discountedSubtotal, hasServiceFee],
   );
 
   const tipAmount = useMemo(() => {
@@ -353,7 +357,9 @@ export default function CheckoutPage() {
                   {discount > 0 ? (
                     <Row label="Alennus" value={`−${discount.toFixed(2)}€`} accent />
                   ) : null}
-                  <Row label="Palvelumaksu (9%)" value={`${serviceFee.toFixed(2)}€`} />
+                  {hasServiceFee ? (
+                    <Row label="Palvelumaksu (9%)" value={`${serviceFee.toFixed(2)}€`} />
+                  ) : null}
                   {tipAmount > 0 ? (
                     <Row label="Tippi" value={`${tipAmount.toFixed(2)}€`} />
                   ) : null}

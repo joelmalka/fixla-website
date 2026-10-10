@@ -49,7 +49,7 @@ export default function ReferralsPage() {
 
   const handleShare = async () => {
     if (!code) return;
-    const url = `https://www.fixla.fi/sivut/lataa?ref=${code}`;
+    const url = `https://www.fixla.fi/lataa?ref=${code}`;
     const message = `Kokeile Fixla-sovellusta ja saat 5€ alennusta ensimmäisestä palvelusta!\n\n${url}\n\nTai käytä koodiani: ${code}`;
     if (typeof navigator !== 'undefined' && navigator.share) {
       try {

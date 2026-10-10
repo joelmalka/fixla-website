@@ -15,9 +15,10 @@ import {
 
 type Cars = 1 | 2;
 
+// Flat all-inclusive prices — no service fee at checkout (see NO_SERVICE_FEE_SLUGS)
 const BASE_BY_CARS: Record<Cars, number> = {
-  1: 33,
-  2: 55,
+  1: 39.9,
+  2: 74.9,
 };
 
 export default function TireChangeConfig() {
@@ -25,29 +26,34 @@ export default function TireChangeConfig() {
   const { defaultDate } = useSchedule();
   const [cars, setCars] = useState<Cars>(1);
   const [pressure, setPressure] = useState(false);
-  const [grease, setGrease] = useState(false);
   const [instructions, setInstructions] = useState('');
   const [scheduleMode, setScheduleMode] = useState<ScheduleMode>('asap');
   const [date, setDate] = useState(defaultDate);
   const [time, setTime] = useState('09:00');
 
-  const price = useMemo(() => {
-    let addOns = 0;
-    if (pressure && grease) addOns = cars * 8;
-    else if (pressure || grease) addOns = cars * 5;
-    return BASE_BY_CARS[cars] + addOns;
-  }, [cars, pressure, grease]);
+  const price = useMemo(
+    () => Math.round((BASE_BY_CARS[cars] + (pressure ? cars * 5 : 0)) * 100) / 100,
+    [cars, pressure],
+  );
 
   const handleContinue = () => {
+    // Same format as the mobile app — the worker app reads cars + pressure check from this
+    // to show the job details and calculate the worker's fixed payout
+    const pressureNote = pressure ? '\n\n✅ Rengaspaineiden tarkistus / Tire pressure check included' : '';
+    const base = `${cars === 1 ? '1 car' : '2 cars'} - Worker brings all tools${pressureNote}`;
+    const fullInstructions = instructions.trim()
+      ? `${base}\n\nExtra instructions: ${instructions.trim()}`
+      : base;
+
     patchOrderSession({
       serviceSlug: 'renkaiden-vaihto',
       serviceConfig: {
         cars,
-        addOns: { pressure, grease },
+        addOns: { pressure },
         duration: `${cars} auto${cars === 1 ? '' : 'a'}`,
       },
       price,
-      instructions,
+      instructions: fullInstructions,
       scheduledFor: scheduledForFrom(scheduleMode, date, time),
     });
     router.push('/kassa');
@@ -75,18 +81,11 @@ export default function TireChangeConfig() {
 
       <div>
         <h2 className="text-lg font-bold text-gray-900">Lisäpalvelut</h2>
-        <p className="mt-1 text-sm text-gray-600">Molemmat yhdessä −2€/auto.</p>
         <div className="mt-3 space-y-2">
           <Toggle
             on={pressure}
             onToggle={() => setPressure((v) => !v)}
             title="Rengaspaineiden tarkistus"
-            subtitle="5€ / auto"
-          />
-          <Toggle
-            on={grease}
-            onToggle={() => setGrease((v) => !v)}
-            title="Pulttien rasvaus"
             subtitle="5€ / auto"
           />
         </div>
