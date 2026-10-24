@@ -341,9 +341,7 @@
       <div class="logo-icon">💰</div>
       <h1>Fixla Admin</h1>
       <p>Laskutuspyynnöt / Earnings Claims</p>
-      <div id="login-error" class="login-error">Väärä salasana. Yritä uudelleen.</div>
-      <input type="password" id="password-input" placeholder="Salasana" autocomplete="off" />
-      <button type="button" onclick="checkPassword()">Kirjaudu</button>
+      <p>Ladataan…</p>
     </div>
   </div>
 
@@ -411,33 +409,11 @@
     </div>
   </div>
 
+  <script src="/admin-panel/admin-auth.js"></script>
   <script>
     // Define functions first
-    function checkPassword() {
-      var input = document.getElementById('password-input');
-      var error = document.getElementById('login-error');
-      var correctHash = 'VG9vWXVuZ1Rvb1NraW5ueQ==';
-      var inputHash = btoa(input.value);
-
-      if (inputHash === correctHash) {
-        sessionStorage.setItem('fixla_admin_auth', 'authenticated');
-        error.classList.remove('show');
-        showApp();
-      } else {
-        error.classList.add('show');
-        input.value = '';
-        input.focus();
-      }
-    }
-
-    function showApp() {
-      document.getElementById('login-overlay').style.display = 'none';
-      document.getElementById('app').style.display = 'block';
-      initSupabase();
-    }
-
-    function initSupabase() {
-      supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    function showApp(client) {
+      supabase = client;
       loadClaims();
     }
 
@@ -609,20 +585,8 @@
     let currentFilter = 'pending';
     let allClaims = [];
 
-    // Add enter key listener
-    document.getElementById('password-input').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        checkPassword();
-      }
-    });
-
-    // Check if already authenticated on page load
-    (function() {
-      var auth = sessionStorage.getItem('fixla_admin_auth');
-      if (auth === 'authenticated') {
-        showApp();
-      }
-    })();
+    // Show the app only after an admin has signed in (see admin-auth.js)
+    FixlaAdminAuth.start(showApp);
   </script>
 </body>
 </html>

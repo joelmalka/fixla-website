@@ -85,60 +85,20 @@
   </head>
   <body>
     <div id="login-overlay" class="login-overlay">
-      <div class="login-box">
-        <div class="logo-icon">🔐</div>
-        <h1>Fixla Admin</h1>
-        <p>Enter password to access the admin panel</p>
-        <div id="login-error" class="login-error">Incorrect password. Please try again.</div>
-        <input type="password" id="password-input" placeholder="Enter password" autocomplete="off" />
-        <button onclick="checkPassword()">Access Admin Panel</button>
-      </div>
+      <div class="login-box"><p>Ladataan…</p></div>
     </div>
     <div id="app" style="display: none;"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.47.12/dist/umd/supabase.min.js"></script>
+    <script src="/admin-panel/admin-auth.js"></script>
     <script>
-      // Check if already authenticated
-      (function() {
-        var auth = sessionStorage.getItem('fixla_admin_auth');
-        if (auth === 'authenticated') {
-          document.getElementById('login-overlay').style.display = 'none';
-          document.getElementById('app').style.display = 'block';
-          loadApp();
-        }
-      })();
-
-      function checkPassword() {
-        var input = document.getElementById('password-input');
-        var error = document.getElementById('login-error');
-        var correctHash = 'VG9vWXVuZ1Rvb1NraW5ueQ==';
-        var inputHash = btoa(input.value);
-
-        if (inputHash === correctHash) {
-          sessionStorage.setItem('fixla_admin_auth', 'authenticated');
-          document.getElementById('login-overlay').style.display = 'none';
-          document.getElementById('app').style.display = 'block';
-          error.classList.remove('show');
-          loadApp();
-        } else {
-          error.classList.add('show');
-          input.value = '';
-          input.focus();
-        }
-      }
-
-      // Allow Enter key to submit
-      document.getElementById('password-input').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-          checkPassword();
-        }
-      });
-
-      function loadApp() {
+      // Load the admin bundle only after an admin has signed in (see admin-auth.js)
+      FixlaAdminAuth.start(function () {
         var script = document.createElement('script');
         script.type = 'module';
         script.crossOrigin = 'anonymous';
         script.src = '/admin-panel/assets/index-DvnZVYiA.js';
         document.body.appendChild(script);
-      }
+      });
     </script>
   </body>
 </html>
