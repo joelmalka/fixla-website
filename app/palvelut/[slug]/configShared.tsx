@@ -537,7 +537,9 @@ export function scheduledForFrom(
 ): string | null {
   if (mode === 'asap') return null;
   if (!date || !time) return null;
-  return new Date(`${date}T${time}:00`).toISOString();
+  // Store the picked Finnish wall-clock time with a Z suffix, exactly like the
+  // mobile app does — the worker app displays scheduled_for as-is (no tz conversion).
+  return `${date}T${time}:00.000Z`;
 }
 
 export function QtyStepper({
