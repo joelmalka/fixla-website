@@ -13,6 +13,7 @@ type OrderRow = {
   price: number;
   location: string | null;
   created_at: string;
+  scheduled_for: string | null;
   rating: number | null;
   services: { name: string | null } | null;
 };
@@ -67,7 +68,7 @@ export default function OrdersPage() {
       const { data: rows } = await supabase
         .from('orders')
         .select(
-          `id, status, price, location, created_at, rating,
+          `id, status, price, location, created_at, scheduled_for, rating,
            services:service_id ( name )`,
         )
         .eq('customer_id', data.session.user.id)
@@ -201,12 +202,24 @@ function OrderCard({ order }: { order: OrderRow }) {
     month: 'short',
     year: 'numeric',
   });
+  // scheduled_for holds the picked Finnish wall-clock time with a Z suffix — show it as-is (UTC)
+  const bookedText = order.scheduled_for
+    ? new Date(order.scheduled_for).toLocaleString('fi-FI', {
+        weekday: 'short',
+        day: 'numeric',
+        month: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'UTC',
+      })
+    : 'Mahdollisimman pian';
   return (
     <li className="rounded-2xl border border-gray-200 bg-white p-4 md:p-5">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h3 className="truncate text-base font-bold text-gray-900">{serviceName}</h3>
           <p className="mt-0.5 text-xs text-gray-500">{dateText}</p>
+          <p className="mt-0.5 text-sm font-semibold text-gray-700">📅 Ajankohta: {bookedText}</p>
         </div>
         <span
           className={`shrink-0 rounded-full px-3 py-1 text-[11px] font-semibold ${STATUS_COLOR[order.status]}`}
